@@ -1,0 +1,20 @@
+# Local SDK reference copies and extracted text
+/docs/sdk-reference/
+
+# Local measurements and secrets
+/results/
+.env
+.env.*
+!.env.example
+
+# Model artifacts
+*.rknn
+*.weight
+*.gguf
+*.embed.bin
+
+# Runtime dependencies
+__pycache__/
+*.pyc
+.venv/
+node_modules/
