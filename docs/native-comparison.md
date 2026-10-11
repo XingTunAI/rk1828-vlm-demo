@@ -48,7 +48,7 @@ Qwen3-VL-4B / RK1828 / 384×384：Vision117.6ms，LLM TTFT111.45ms，LLM Decode8
 
 复测应优先按原厂方法分开测视觉与LLM：性能方法入口为 `rknn3-model-zoo/tools/rknn3_llm_test/README.md`；按说明排除首次会话初始化影响。再保留真实图文请求和业务短结论测试作为另外两种口径，不用随机token测试替代图片业务吞吐。
 
-## 条件对齐复测与850MHz原因
+## 部分条件对齐复测与850MHz原因
 
 2026-10-11：原厂Quick Start第25页明确列出SODIMM的EFFICIENT/NORMAL/PERFORMANCE分别为500/850/1000MHz，M.2分别为400/500/850MHz；第27页注明M.2最高频率不超过850MHz。当前设备可用400/500/850MHz、已为PERFORMANCE，与M.2档位一致。查询时温度32℃，默认温控阈值83℃对应850MHz、90℃对应500MHz；当前850MHz不能解释为过热降频。文档未在该处进一步解释模组上限的电气设计原因，不推断为芯片故障或可通过改配置解除。
 
@@ -64,3 +64,20 @@ Qwen3-VL-4B / RK1828 / 384×384：Vision117.6ms，LLM TTFT111.45ms，LLM Decode8
 同一CPU performance设置下，再运行原生VLM三次：Vision119ms、图文LLM TTFT157.542ms、Decode40.107token/s、输出108token，退出0。视觉耗时接近原厂117.6ms；语言部分仍有差距，但频率、模型哈希、上下文及输入方式尚未完全对齐，不能把全部差距归因于850MHz，也不线性推算1GHz结果。
 
 结束后CPU governor已恢复schedutil，模型服务恢复ctx16384单session，/health返回ok。完整日志保存在本地results/vendor-retest-board，不上传GitHub。
+
+
+## CPU 亲和性复核及模型来源缺口
+
+保持 SDK 原始 eval-perf 源码、128输入/128输出、32768上下文、CPU performance、NPU 850MHz不变，依次运行全部CPU允许、大核限定、全部CPU允许。每组3次，排除首次初始化后的两个 Decode 结果：
+
+| CPU亲和性 | Run1 token/s | Run2 token/s |
+| --- | ---: | ---: |
+| 全部CPU，第一组 | 39.88 | 39.79 |
+| 大核，taskset f0 | 40.99 | 41.09 |
+| 全部CPU，复核组 | 39.87 | 40.68 |
+
+三组均正常退出，未见日志中的推理失败；结束后恢复CPU schedutil及ctx16384单session服务，health正常。原始结果保存在本地results/condition-audit-board。大核绑定仅小幅改善，不能解释原厂87.8token/s与当前约40token/s的差距。这是短时性能诊断，不是稳定性或业务准确率验证。
+
+当前模型README明确标明由Firefly AI Team转换，不是已经核实与Rockchip性能表一致的二进制产物。SDK eval源码实际使用模型max_ctx_len初始化session，命令行上下文参数只检查范围，不能通过改该参数声称已完成上下文对照。
+
+官方公开[Model Zoo下载说明](https://github.com/airockchip/rknn3-model-zoo/blob/main/README_CN.md)提供[RKNN3 SDK网盘](https://console.box.lenovo.com/l/H1fig1)，提取码rknn。2026-10-11查阅的公开main指向RKNN3_SDK/rknn3_models/v1.1.0；当前比较基准来自V1.0.4，尚未核实网盘中对应旧版Qwen3-VL-4B包及哈希，不将新版包等同于该表的原始测试包。
