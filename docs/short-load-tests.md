@@ -1,18 +1,10 @@
-# 多并发与 NPU 高负载短测
+# 多并发与 NPU 高负载短测报告
 
-两类测试分别执行，不使用长时间测试：
+验证日期：2026-10-11。配置：RK3588 + RK1828，Qwen3-VL-4B W4A16，视觉 384×384，RKLLM3 Server 1.0.4。
 
-1. 并发扫描：图片集、提示词、128 token 输出上限、768 上下文不变。服务使用 `SESSIONS=2 sh scripts/start-qwen3-vl-board.sh`，测试使用 `SESSIONS=2 CONCURRENCY=2 node scripts/board-soak.mjs 90`。各请求独占不同 slot；出现设备异常则停止升档。
-2. NPU 负载探索：恢复单 session / 单并发，分别运行长输出与较长输入，避免把 session 变化混入负载比较。
+[文档导航](README.md) · [复现步骤](short-test-guide.md) · [单并发稳定性报告](single-session-result.md)
 
-```sh
-TEST_PROFILE=decode MAX_TOKENS=512 node scripts/board-soak.mjs 60
-TEST_PROFILE=prefill MAX_TOKENS=32 node scripts/board-soak.mjs 60
-```
-
-`MAX_TOKENS` 是上限，不保证生成到上限。实际 token 数以响应记录为准。两种 profile 提示词不同，吞吐数值不能直接当作相同业务的加速倍数。较长输入规则是为了增加 prefill 工作量，不是准确率评估。
-
-`soak-summary.json` 记录 NPU 利用率采样均值、最大值和达到 90% 的采样次数。约 5 秒一次，包含起止阶段，不能证明瞬时峰值或硬件理论极限。没有有效样本时不能宣称利用率为零。CLI 的 `SESSIONS` 必须和实际模型服务一致，它不会自动更改模型服务。
+结论：两 session / 两并发初测未通过；单 session 增大输入后，NPU 采样最高 93%、均值 73.8%，尚未验证持续满载。所有短测已经结束。
 
 ## 2026-10-11 两并发初测
 
@@ -21,20 +13,6 @@ TEST_PROFILE=prefill MAX_TOKENS=32 node scripts/board-soak.mjs 60
 结果：3 请求，1 成功、2 超时。开始时设备 Online / OK，随后 rknn-smi 不可用；HTTP `/health` 仍返回 OK，说明仅检查 HTTP 存活不够。未取得有效高负载 NPU 样本，因此不报告满载吞吐。
 
 人工恢复时模型服务停止超时，硬件复位并加载既有固件、恢复单 session 后设备重新 Online / OK。没有证据将根因确定为内存不足；需进一步排查 SDK / 固件 / 模型多 session 兼容性。不继续试 4 或 8 并发，避免反复触发同一故障。
-
-## 高负载配置扩展
-
-`PREFILL_REPEAT` 可控制规则重复次数（1–200，默认 6），操作者必须按实际模型上下文检查 token 预算。测试程序保存模型启动命令，便于核对真实上下文和 session。
-
-第三档负载短测使用单 session、上下文 2048、`PREFILL_REPEAT=36`、输出上限 32 token，持续输入 60 秒。服务启动命令需先设置 `CONTEXT_SIZE=2048`，再执行：
-
-```sh
-TEST_PROFILE=prefill PREFILL_REPEAT=36 MAX_TOKENS=32 node scripts/board-soak.mjs 60
-```
-
-此档改变了上下文及输入量，与 768 上下文的日常复核性能分别报告，不能混为同一业务基线。测试结束恢复默认单 session / 768 上下文服务。
-
-第四档负载短测进一步使用上下文 8192、PREFILL_REPEAT=160、输出上限 32，仍只持续输入 60 秒。该人工构造的大输入用于探索计算利用率，不代表日常复核提示词。
 
 ## 短测实测结果
 
