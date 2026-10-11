@@ -47,3 +47,20 @@ Qwen3-VL-4B / RK1828 / 384×384：Vision117.6ms，LLM TTFT111.45ms，LLM Decode8
 本机原生图文短测为Vision约130ms、LLM TTFT224.395ms、Decode36.873token/s，使用schedutil且图文输入/输出108token与原厂独立128/128测试不一致。因此这些数值不能作为同条件性能差距，更不能声称硬件只有原厂约四成性能。此前“原厂完整测试条件未知”的表述现已由上述条件补充；模型权重哈希等仍需对齐。
 
 复测应优先按原厂方法分开测视觉与LLM：性能方法入口为 `rknn3-model-zoo/tools/rknn3_llm_test/README.md`；按说明排除首次会话初始化影响。再保留真实图文请求和业务短结论测试作为另外两种口径，不用随机token测试替代图片业务吞吐。
+
+## 条件对齐复测与850MHz原因
+
+2026-10-11：原厂Quick Start第25页明确列出SODIMM的EFFICIENT/NORMAL/PERFORMANCE分别为500/850/1000MHz，M.2分别为400/500/850MHz；第27页注明M.2最高频率不超过850MHz。当前设备可用400/500/850MHz、已为PERFORMANCE，与M.2档位一致。查询时温度32℃，默认温控阈值83℃对应850MHz、90℃对应500MHz；当前850MHz不能解释为过热降频。文档未在该处进一步解释模组上限的电气设计原因，不推断为芯片故障或可通过改配置解除。
+
+按SDK指定源码在板端编译rknn3_session_test_eval_perf，保持原源码。将RK3588三组CPU governor临时切为performance，NPU保持受支持最高850MHz。LLM独立输入128、输出128，模型上下文32768；排除Run0初始化后：
+
+| 项目 | Run1 | Run2 | 原厂1GHz参考 |
+| --- | ---: | ---: | ---: |
+| 首token / Prefill(ms) | 176.21 | 177.40 | 111.45 |
+| Decode(token/s) | 39.61 | 39.81 | 87.8 |
+
+程序将128输出中的首token计入Prefill，Generate计127个。原始日志包含plain text mrope提示，符合此次使用纯token输入的事实；不是图文业务准确率验证。
+
+同一CPU performance设置下，再运行原生VLM三次：Vision119ms、图文LLM TTFT157.542ms、Decode40.107token/s、输出108token，退出0。视觉耗时接近原厂117.6ms；语言部分仍有差距，但频率、模型哈希、上下文及输入方式尚未完全对齐，不能把全部差距归因于850MHz，也不线性推算1GHz结果。
+
+结束后CPU governor已恢复schedutil，模型服务恢复ctx16384单session，/health返回ok。完整日志保存在本地results/vendor-retest-board，不上传GitHub。
