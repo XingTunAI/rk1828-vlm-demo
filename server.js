@@ -3,8 +3,10 @@ import { readFile, mkdir, writeFile, appendFile, readdir } from 'node:fs/promise
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { randomUUID } from 'node:crypto';
-import { infer, summarize } from './lib/inference.js';
+import { infer } from './lib/inference.js';
 import { imageInfo, visionContent, validateMessages } from './lib/vision.js';
+
+import { schedule, loadSummary } from './lib/load.js';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const results = process.env.RESULTS_DIR || path.join(root, 'results');
@@ -15,7 +17,7 @@ let startingRun = false;
 const json = (res, status, data) => { res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8' }); res.end(JSON.stringify(data)); };
 async function body(req) {
   let data = '';
-  for await (const chunk of req) { data += chunk; if (data.length > 6 * 1024 * 1024) throw new Error('请求过大（上限 6 MiB）'); }
+  for await (const chunk of req) { data += chunk; if (data.length > 32 * 1024 * 1024) throw new Error('请求过大（上限 32 MiB）'); }
   return JSON.parse(data || '{}');
 }
 function integer(value, low, high, label) {
@@ -35,27 +37,21 @@ const publicConfig = c => { const { apiKey, ...rest } = c; return rest; };
 function snapshot(run) {
   return { id: run.id, status: run.status, config: publicConfig(run.config), options: run.options,
     startedAt: run.startedAt, storageError: run.storageError,
-    summary: summarize(run.records, (run.ended || performance.now())-run.start), records: run.records };
+    summary: loadSummary(run), records: run.records };
 }
 async function execute(run) {
-  let issued = 0;
   try {
-    await Promise.all(Array.from({length: run.options.concurrency}, async (_, slot) => {
-      while (!run.stop && issued < run.options.requests && performance.now()-run.start < run.options.durationSeconds*1000) {
-        const index = issued++;
-        const record = await infer(run.config, [{ role: 'user', content: visionContent(run.options.prompt, run.image) }], slot);
-        record.index = index;
-        // Benchmark reports retain timing and counts, not business text or credentials.
-        delete record.output; delete record.reasoning;
-        run.records.push(record);
-        try { await appendFile(path.join(results, run.id, 'requests.jsonl'), JSON.stringify(record)+'\n'); }
-        catch { run.stop = true; run.storageError = '记录写入失败，已停止发起请求'; }
-      }
-    }));
+    await schedule(run, async(index,slot)=>{
+      const imageIndex=index%run.images.length;
+      const record=await infer(run.config,[{role:'user',content:visionContent(run.options.prompt,run.images[imageIndex])}],slot);
+      record.imageIndex=imageIndex;
+      delete record.output;delete record.reasoning;
+      return record;
+    },record=>appendFile(path.join(results,run.id,'requests.jsonl'),JSON.stringify(record)+'\n'));
     run.status = run.storageError ? 'failed' : run.stop ? 'stopped' : 'completed';
   } catch { run.status = 'failed'; }
   run.ended = performance.now();
-  run.image = null;
+  run.images = null;
   try { await writeFile(path.join(results, run.id, 'report.json'), JSON.stringify(snapshot(run), null, 2)); }
   catch { run.status = 'failed'; run.storageError = '报告保存失败'; }
 }
@@ -91,17 +87,27 @@ const server = http.createServer(async (req,res) => {
     if (req.method === 'POST' && url.pathname === '/api/runs') {
       if (active?.status === 'running' || startingRun || chatActive) return json(res,409,{error:'已有推理任务正在运行'});
       const input = await body(req), c = config(input);
-      const mode = input.mode === 'stability' ? 'stability' : 'performance';
-      const concurrency = integer(input.concurrency ?? 1,1,8,'并发数');
+      const mode = input.mode ?? 'concurrency';
+      if(!['performance','baseline','concurrency','arrival','burst','stability'].includes(mode))throw new Error('未知测试模式');
+      const concurrency = mode === 'baseline' ? 1 : integer(input.concurrency ?? 1,1,8,'并发数');
       const sessions = integer(input.sessions ?? 1,1,8,'服务 session 数');
       if (concurrency > sessions) throw new Error('并发数不能超过已配置的服务 session 数');
-      const image = imageInfo(input.image);
-      const options = {mode, concurrency, sessions, image, workload:'single-image-vlm', requests: mode === 'stability' ? 100000 : integer(input.requests ?? 30,1,10000,'请求数'),
+      const images=input.images ?? [input.image];
+      if(!Array.isArray(images)||!images.length||images.length>20)throw new Error('选择 1–20 张图片');
+      const metadata=images.map(imageInfo);
+      if(metadata.reduce((n,m)=>n+m.bytes,0)>20*1024*1024)throw new Error('图片集合不超过 20 MiB');
+      const image=metadata[0];
+      const options = {mode, concurrency, sessions, image, images:metadata, workload:'round-robin-single-image-vlm', requests: ['stability','arrival','burst'].includes(mode) ? 100000 : integer(input.requests ?? 30,1,10000,'请求数'),
         durationSeconds: integer(input.durationSeconds ?? 1800,1,28800,'时长'), prompt: String(input.prompt || '').trim()};
+      options.queueLimit=integer(input.queueLimit ?? 32,0,1000,'排队上限');
+      options.arrivalRate=Number(input.arrivalRate ?? 1);
+      if(!Number.isFinite(options.arrivalRate)||options.arrivalRate<0.1||options.arrivalRate>100)throw new Error('输入速率须为 0.1–100 请求/秒');
+      options.burstSize=integer(input.burstSize ?? 8,1,1000,'突发批量');
+      options.burstInterval=integer(input.burstInterval ?? 10,1,3600,'突发间隔');
       if (!options.prompt || options.prompt.length > 60000) throw new Error('请输入不超过 60000 字符的测试文本');
       if (active?.status === 'running' || startingRun || chatActive) return json(res,409,{error:'已有推理任务正在运行'});
       startingRun = true;
-      const run = {id:randomUUID(), status:'running', config:c, options, image:input.image, startedAt:new Date().toISOString(), start:performance.now(), records:[], stop:false};
+      const run = {id:randomUUID(), status:'running', config:c, options, images, startedAt:new Date().toISOString(), start:performance.now(), records:[], stop:false};
       try {
         await mkdir(path.join(results,run.id),{recursive:true});
         await writeFile(path.join(results,run.id,'config.json'),JSON.stringify({config:publicConfig(c),options,startedAt:run.startedAt},null,2));
@@ -112,7 +118,7 @@ const server = http.createServer(async (req,res) => {
     }
     if (req.method === 'POST' && url.pathname === '/api/stop') {
       if (active?.status === 'running') active.stop = true;
-      return json(res,200,{message:'已停止发起新请求；当前请求完成或超时后结束'});
+      return json(res,200,{message:'已停止输入并取消排队任务；在途请求完成或超时后结束'});
     }
     if (req.method === 'GET' && url.pathname === '/api/run') { const state = active ? snapshot(active) : null; if(state)state.records=state.records.slice(-100); return json(res,200,state); }
     if (req.method === 'GET' && url.pathname === '/api/reports') {
@@ -120,7 +126,7 @@ const server = http.createServer(async (req,res) => {
       const reports = [];
       for (const id of await readdir(results)) {
         if (!/^[a-f0-9-]{36}$/.test(id)) continue;
-        try { const r=JSON.parse(await readFile(path.join(results,id,'report.json'),'utf8')); reports.push({id,status:r.status,startedAt:r.startedAt,summary:r.summary}); } catch {}
+        try { const r=JSON.parse(await readFile(path.join(results,id,'report.json'),'utf8')); reports.push({id,status:r.status,startedAt:r.startedAt,mode:r.options.mode,concurrency:r.options.concurrency,summary:r.summary}); } catch {}
       }
       return json(res,200,reports.sort((a,b)=>b.startedAt.localeCompare(a.startedAt)));
     }
