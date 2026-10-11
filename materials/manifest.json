@@ -345,7 +345,11 @@
     "label": null,
     "status": "unreviewed",
     "searchContext": "construction worker cap",
-    "notes": "历史黑白施工场景，人物较小；不代表当前摄像头域。"
+    "notes": "历史黑白施工场景，人物较小；不代表当前摄像头域。",
+    "inferenceFile": "materials/prepared/helmet-2-rgb.jpg",
+    "inferenceSha256": "0bf02ff51c0da5b6c47b9deb564a77d2299d3a66706bae650dff8a032da6eab5",
+    "inferenceBytes": 205489,
+    "inferenceChanges": "Converted grayscale to RGB JPEG, quality 95; original preserved"
   },
   {
     "event": "helmet",
@@ -365,7 +369,11 @@
     "label": null,
     "status": "unreviewed",
     "searchContext": "construction worker cap",
-    "notes": "历史黑白工业施工远景，头部细节较小；需按目标位置审核。"
+    "notes": "历史黑白工业施工远景，头部细节较小；需按目标位置审核。",
+    "inferenceFile": "materials/prepared/helmet-3-rgb.jpg",
+    "inferenceSha256": "ed84feb57d838b5025e8dd93ea4c7baa7466f028573d603c6fbe51406f5329cf",
+    "inferenceBytes": 337092,
+    "inferenceChanges": "Converted grayscale to RGB JPEG, quality 95; original preserved"
   },
   {
     "event": "vest",

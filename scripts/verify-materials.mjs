@@ -15,5 +15,6 @@ for(const row of rows){
  if(!row.author||!row.source||!row.license)throw Error('Missing attribution: '+row.file);
  if(row.status==='unreviewed'&&row.label!==null)throw Error('Unreviewed image must not carry ground truth');
  bytes+=data.length;
+ if(row.inferenceFile){const copy=await readFile(resolve(root,row.inferenceFile));if(copy.length!==row.inferenceBytes||createHash('sha256').update(copy).digest('hex')!==row.inferenceSha256)throw Error('Invalid inference derivative: '+row.inferenceFile);}
 }
 console.log(`Verified ${rows.length} unique JPEG images; ${(bytes/1048576).toFixed(2)} MiB. Labels are not validated by this check.`);

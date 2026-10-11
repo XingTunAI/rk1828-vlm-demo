@@ -21,3 +21,9 @@ test('fixed arrivals continue under saturation and closed-loop does not reject',
  const closed=run('concurrency');await schedule(closed,async()=>{await wait(10);return result();},async()=>{});
  assert.equal(closed.records.length,8);assert.equal(closed.dropped,0);assert.equal(closed.peakQueue,0);
 });
+
+test('consecutive failure limit stops closed-loop load',async()=>{
+ const r=run('stability',{concurrency:1,requests:100,failureLimit:3});
+ await schedule(r,async()=>({...result(),success:false}),async()=>{});
+ assert.equal(r.records.length,3);assert.equal(r.stop,true);assert.match(r.stopReason,/3/);
+});

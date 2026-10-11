@@ -6,6 +6,7 @@ import { randomUUID } from 'node:crypto';
 import { infer } from './lib/inference.js';
 import { imageInfo, visionContent, validateMessages } from './lib/vision.js';
 
+import { catalog, material } from './lib/materials.js';
 import { schedule, loadSummary } from './lib/load.js';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
@@ -36,7 +37,7 @@ function config(input) {
 const publicConfig = c => { const { apiKey, ...rest } = c; return rest; };
 function snapshot(run) {
   return { id: run.id, status: run.status, config: publicConfig(run.config), options: run.options,
-    startedAt: run.startedAt, storageError: run.storageError,
+    startedAt: run.startedAt, stopReason:run.stopReason, storageError: run.storageError,
     summary: loadSummary(run), records: run.records };
 }
 async function execute(run) {
@@ -97,7 +98,7 @@ const server = http.createServer(async (req,res) => {
       const metadata=images.map(imageInfo);
       if(metadata.reduce((n,m)=>n+m.bytes,0)>20*1024*1024)throw new Error('图片集合不超过 20 MiB');
       const image=metadata[0];
-      const options = {mode, concurrency, sessions, image, images:metadata, workload:'round-robin-single-image-vlm', requests: ['stability','arrival','burst'].includes(mode) ? 100000 : integer(input.requests ?? 30,1,10000,'请求数'),
+      const options = {failureLimit:integer(input.failureLimit ?? 5,1,100,'连续失败停止阈值'),mode, concurrency, sessions, image, images:metadata, workload:'round-robin-single-image-vlm', requests: ['stability','arrival','burst'].includes(mode) ? 100000 : integer(input.requests ?? 30,1,10000,'请求数'),
         durationSeconds: integer(input.durationSeconds ?? 1800,1,28800,'时长'), prompt: String(input.prompt || '').trim()};
       options.queueLimit=integer(input.queueLimit ?? 32,0,1000,'排队上限');
       options.arrivalRate=Number(input.arrivalRate ?? 1);
@@ -134,6 +135,11 @@ const server = http.createServer(async (req,res) => {
       const id=url.pathname.split('/').pop();
       try { return json(res,200,JSON.parse(await readFile(path.join(results,id,'report.json'),'utf8'))); } catch { return json(res,404,{error:'报告不存在或测试尚未结束'}); }
     }
+    if(req.method==='GET'&&url.pathname==='/api/materials'){
+      const rows=await catalog(root);return json(res,200,rows.map(({file,...r})=>({...r,imageUrl:'/api/materials/'+r.id+'/image'})));
+    }
+    const materialMatch=/^\/api\/materials\/([a-f0-9]{64})\/image$/.exec(url.pathname);
+    if(req.method==='GET'&&materialMatch){try{const data=await material(root,materialMatch[1]);res.writeHead(200,{'Content-Type':'image/jpeg','Cache-Control':'private, max-age=3600'});res.end(data);}catch(error){json(res,404,{error:error.message});}return;}
     const assets = {'/':['index.html','text/html'], '/app.js':['app.js','text/javascript'], '/style.css':['style.css','text/css']};
     if (req.method === 'GET' && assets[url.pathname]) {
       const [name,type]=assets[url.pathname]; res.writeHead(200,{'Content-Type':type+'; charset=utf-8'}); res.end(await readFile(path.join(root,'public',name))); return;

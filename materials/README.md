@@ -2,7 +2,7 @@
 
 当前收集 26 张 Wikimedia Commons 原图，按 9 个事件目录组织（部分目录尚无图片），均为待人工审核的候选素材。**不是已标注准确率测试集，也未达到每类 30–50 张的初步评估规模。**
 
-双击 [index.html](index.html) 可离线浏览缩略图与来源；Demo 仍通过“选择图片集”加载图片，本索引不自动把图片传给模型。
+双击 [index.html](index.html) 可离线浏览缩略图与来源；Demo 内也可筛选、勾选图集并应用到问答或压测。
 
 ## 数量与用途
 
@@ -28,7 +28,7 @@
 
 填写 [annotation-template.csv](annotation-template.csv)：verdict 采用“确认 / 否认 / 无法判断”，注明目标位置或 ROI、可见依据、审核者及日期。空白标签不参与准确率计算，不使用模型自行输出作为真值。最终验收需增加监控视角、夜间、遮挡、小目标及连续帧材料。
 
-运行 `node scripts/verify-materials.mjs` 核验文件大小、SHA256、重复文件和来源字段。文件按原样下载，无修改；单张不超过 4 MiB，Demo 每批总量仍不超过 20 MiB，不要一次选择整个素材库。
+运行 `node scripts/verify-materials.mjs` 核验文件大小、SHA256、重复文件和来源字段。原图按原样保存；灰度 JPEG 的 RGB 推理副本由 python scripts/prepare-materials.py 生成，转换与哈希记录在清单中；单张不超过 4 MiB，Demo 每批总量仍不超过 20 MiB，不要一次选择整个素材库。
 
 [manifest.json](manifest.json) 保存作者、标题、来源、许可、文件大小及哈希。各图片适用独立许可，代码许可不覆盖图片。
 
