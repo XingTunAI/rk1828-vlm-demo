@@ -35,3 +35,15 @@ Qwen3-VL-4B W4A16，384×384，视觉/LLM核心掩码均0xff，公开demo.jpg，
 恢复原ctx16384模型服务后，使用同一张demo.jpg、同一句英文提示词、输出上限1024，连续3次请求均成功：首次首token1289.85ms；随后两次300.17/324.54ms，整体耗时828.16/859.09ms，decode39.70/39.26token/s，实际均输出21token。
 
 原生输出108token、HTTP输出21token，说明两条路径的模板或采样等配置尚未对齐；原生ctx1024、HTTPctx16384亦不同。不能把延迟相减当HTTP开销，也不能称同条件A/B测试。固定同图可能受视觉缓存影响，即使请求cache_prompt=false也不保证所有阶段无缓存，不能替代20张轮换吞吐。下一步需对齐模板、采样、上下文和预热，再做可归因对照。
+
+## 更正：已核实 Rockchip 原厂 V1.0.4 数据
+
+已在用户提供SDK的 `rknn/rknn3-runtime/doc/00_Rockchip_RKNPU3_ReleaseNote_RKNN3_SDK_V1.0.4_CN.pdf` 找到原厂表。文档版本V1.0.4，日期2026-05-15，第9页为模型性能，第10页为条件，第13页给出测试方法入口。原文件只保存在本地SDK参考目录，不上传仓库。
+
+Qwen3-VL-4B / RK1828 / 384×384：Vision117.6ms，LLM TTFT111.45ms，LLM Decode87.8token/s。这替代此前飞凌表作为当前SDK版本的首选参考。
+
+原厂明确说明：Vision和LLM耗时独立测试；LLM输入128token、输出128token；RK3588与RK1828通过PCIe连接；RK3588采用performance模式；协处理器NPU为1GHz。
+
+本机原生图文短测为Vision约130ms、LLM TTFT224.395ms、Decode36.873token/s，使用schedutil且图文输入/输出108token与原厂独立128/128测试不一致。因此这些数值不能作为同条件性能差距，更不能声称硬件只有原厂约四成性能。此前“原厂完整测试条件未知”的表述现已由上述条件补充；模型权重哈希等仍需对齐。
+
+复测应优先按原厂方法分开测视觉与LLM：性能方法入口为 `rknn3-model-zoo/tools/rknn3_llm_test/README.md`；按说明排除首次会话初始化影响。再保留真实图文请求和业务短结论测试作为另外两种口径，不用随机token测试替代图片业务吞吐。
