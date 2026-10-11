@@ -1,5 +1,7 @@
 # 并发与 NPU 短测操作指南
 
+> 2026-10-11 口径更正：长提示词高利用率不代表图片/视频复核业务能力。历史数据保留，后续优先增加短提示词图片任务。见[更正记录与新方案](test-scope-correction.md)。
+
 两类测试分别执行，不使用长时间测试：
 
 1. 并发扫描：图片集、提示词、128 token 输出上限、768 上下文不变。服务使用 `SESSIONS=2 sh scripts/start-qwen3-vl-board.sh`，测试使用 `SESSIONS=2 CONCURRENCY=2 node scripts/board-soak.mjs 90`。各请求独占不同 slot；出现设备异常则停止升档。

@@ -1,5 +1,7 @@
 # 多并发与 NPU 高负载短测报告
 
+> 2026-10-11 口径更正：长提示词高利用率不代表图片/视频复核业务能力。历史数据保留，后续优先增加短提示词图片任务。见[更正记录与新方案](test-scope-correction.md)。
+
 验证日期：2026-10-11。配置：RK3588 + RK1828，Qwen3-VL-4B W4A16，视觉 384×384，RKLLM3 Server 1.0.4。
 
 [文档导航](README.md) · [复现步骤](short-test-guide.md) · [单并发稳定性报告](single-session-result.md)
