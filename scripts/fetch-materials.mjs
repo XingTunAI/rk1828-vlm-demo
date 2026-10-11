@@ -19,6 +19,6 @@ for(const r of rows){
  await exec(process.platform==='win32'?'curl.exe':'curl',['-fL','--connect-timeout','10','--max-time','60',url.href,'-o',file+'.part'],{timeout:65000,maxBuffer:1048576});
  const b=await readFile(file+'.part');if(b.length!==r.bytes||hash(b)!==r.sha256)throw Error('Source content differs from pinned manifest');
  await rename(file+'.part',file);console.log('Downloaded '+r.file);
- }catch(e){failures++;console.error(r.file+': '+e.message);}
+ }catch(e){failures++;console.error(r.file+': '+e.message);if(/429/.test(e.stderr??e.message)){console.error('Source rate limited requests; stop and retry later.');break;}}
 }
 if(failures)process.exitCode=1;
