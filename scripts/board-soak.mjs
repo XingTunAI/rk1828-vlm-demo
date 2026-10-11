@@ -11,6 +11,8 @@ const sessions=Number(process.env.SESSIONS||1),concurrency=Number(process.env.CO
 if(!Number.isInteger(sessions)||sessions<1||sessions>8||!Number.isInteger(concurrency)||concurrency<1||concurrency>sessions||!Number.isInteger(maxTokens)||maxTokens<1||maxTokens>512)throw Error('Invalid sessions/concurrency/token limit');
 const sampleIntervalMs=Number(process.env.SAMPLE_INTERVAL_MS||5000);
 if(!Number.isInteger(sampleIntervalMs)||sampleIntervalMs<1000||sampleIntervalMs>10000)throw Error('SAMPLE_INTERVAL_MS must be 1000..10000');
+const loadMode=process.env.LOAD_MODE||'stability',arrivalRate=Number(process.env.ARRIVAL_RATE||1),queueLimit=Number(process.env.QUEUE_LIMIT||32);
+if(!['stability','arrival'].includes(loadMode)||!Number.isFinite(arrivalRate)||arrivalRate<0.1||arrivalRate>100||!Number.isInteger(queueLimit)||queueLimit<0||queueLimit>1000)throw Error('Invalid load mode/rate/queue limit');
 const base='http://127.0.0.1:8787';
 async function deviceInfo(){try{return {...await exec('rknn-smi',['info'],{timeout:15000}),exitCode:0};}catch(e){if(e.code===255&&e.stdout?.includes('RK1828'))return {stdout:e.stdout,exitCode:255};throw e;}}
 
@@ -33,12 +35,12 @@ const modelCommand=(await exec('ps',['-ww','-C','rkllm3-server','-o','args='],{t
 const beforeInfo=(await deviceInfo()).stdout;
 const beforeMemory=(await exec('rknn-smi',['info','-t','memory'],{timeout:15000})).stdout;
 if(!/\|\s*0\s+Online\s*\|\s*OK\b/.test(beforeInfo)||!beforeMemory.includes('Free DDR Capacity(MB)'))throw Error('Device telemetry preflight failed');
-const started=await api('/api/runs',{...config,images,mode:'stability',concurrency,sessions,durationSeconds:seconds,failureLimit:5,prompt:process.env.TEST_PROMPT||prompts[profile]});
+const started=await api('/api/runs',{...config,images,mode:loadMode,arrivalRate,queueLimit,concurrency,sessions,durationSeconds:seconds,failureLimit:5,prompt:process.env.TEST_PROMPT||prompts[profile]});
 const dir=`results/${started.id}/`;
 await mkdir(new URL(dir,root),{recursive:true});
 await writeFile(new URL(dir+'model-command.txt',root),modelCommand);
 await writeFile(new URL(dir+'device-before.txt',root),beforeInfo+'\n'+beforeMemory);
-await atomic('results/active-board-soak.json',{id:started.id,startedAt:new Date().toISOString(),seconds,images:selected.map(r=>({file:r.file,sha256:r.sha256})),profile,prompt:process.env.TEST_PROMPT||prompts[profile],sampleIntervalMs,config});
+await atomic('results/active-board-soak.json',{id:started.id,startedAt:new Date().toISOString(),seconds,images:selected.map(r=>({file:r.file,sha256:r.sha256})),profile,loadMode,arrivalRate,queueLimit,prompt:process.env.TEST_PROMPT||prompts[profile],sampleIntervalMs,config});
 console.log('STARTED '+started.id);
 let stop=false,stopRecorded=false,last,monitorErrors=0,telemetryErrors=0;const samples=[];
 process.on('SIGTERM',()=>{stop=true;});process.on('SIGINT',()=>{stop=true;});

@@ -13,3 +13,9 @@ TEST_PROFILE=image-review MAX_TOKENS=16 SESSIONS=1 CONCURRENCY=1 SAMPLE_INTERVAL
 记录实际输入输出token、成功失败、截断数、图片请求/秒、TTFT和端到端P50/P95/P99、NPU曲线、温度、设备及主机内存、采样错误。原始results不上传GitHub。
 
 本轮没有YOLO目标框、逐样本人工真值或视频时序，验证的是整图短事件判断的服务吞吐与稳定性，不是框内准确率、最大并发或视频FPS。使用闭环连续请求，尚未测外部到达率与积压边界；下一步依据本轮实测完成速率设计到达率阶梯。不得将高NPU利用率作为通过标准。
+
+## 到达率阶梯验证
+
+随后使用相同短提示词、模型和20张图，按1、1.5、2张/秒各送入180秒，每档排空后进入下一档，队列上限16，单session单并发。这是输入速率，不是实测完成吞吐。队列满丢弃与推理失败分别统计。
+
+运行器可用 `LOAD_MODE=arrival ARRIVAL_RATE=1.5 QUEUE_LIMIT=16` 设置定速输入；默认仍为闭环稳定性模式。报告检查offered、dropped、cancelled、completionRatio、peakQueue、queueP95、drainMs及端到端延迟。总吞吐含排空时间，不能用提交数量除输入时间声称处理能力。
