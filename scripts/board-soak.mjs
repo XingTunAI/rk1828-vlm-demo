@@ -17,7 +17,7 @@ async function deviceInfo(){try{return {...await exec('rknn-smi',['info'],{timeo
 const profile=process.env.TEST_PROFILE||'baseline';
 const prefillRepeat=Number(process.env.PREFILL_REPEAT||6);
 if(!Number.isInteger(prefillRepeat)||prefillRepeat<1||prefillRepeat>400)throw Error('PREFILL_REPEAT must be 1..400; check model context budget');
-const prompts={baseline:'请检查图片中是否有人，简短描述可见动作、衣着及烟火线索。看不清或单图无法确认的动作请写无法判断，不要猜测。',decode:'请详细描述图片中所有可见的人物、衣着、动作、物品、空间关系、背景和光照。按十个观察维度分别写一段，尽可能详尽，至少五百字。不能确定的内容说明无法判断，不要编造。',prefill:'你是图像复核助手。'+('审核规则：只描述可见证据，不猜测身份、意图或被遮挡细节。检查人物、衣着、动作、物品、环境与光照；看不清时说明无法判断。').repeat(prefillRepeat)+'请只用一句话描述图中主要内容。'};
+const prompts={'image-review':'判断图片中是否有人正在打电话。只输出：确认、否认或无法判断。',baseline:'请检查图片中是否有人，简短描述可见动作、衣着及烟火线索。看不清或单图无法确认的动作请写无法判断，不要猜测。',decode:'请详细描述图片中所有可见的人物、衣着、动作、物品、空间关系、背景和光照。按十个观察维度分别写一段，尽可能详尽，至少五百字。不能确定的内容说明无法判断，不要编造。',prefill:'你是图像复核助手。'+('审核规则：只描述可见证据，不猜测身份、意图或被遮挡细节。检查人物、衣着、动作、物品、环境与光照；看不清时说明无法判断。').repeat(prefillRepeat)+'请只用一句话描述图中主要内容。'};
 if(!prompts[profile])throw Error('Unknown test profile');
 const config={baseUrl:'http://127.0.0.1:8080/v1',model:'qwen3-vl-4b',maxTokens,timeoutSeconds:120};
 async function api(path,data){const r=await fetch(base+path,{...(data?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}:{}),signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error('HTTP '+r.status+' '+await r.text());return r.json();}
@@ -38,7 +38,7 @@ const dir=`results/${started.id}/`;
 await mkdir(new URL(dir,root),{recursive:true});
 await writeFile(new URL(dir+'model-command.txt',root),modelCommand);
 await writeFile(new URL(dir+'device-before.txt',root),beforeInfo+'\n'+beforeMemory);
-await atomic('results/active-board-soak.json',{id:started.id,startedAt:new Date().toISOString(),seconds,images:selected.map(r=>({file:r.file,sha256:r.sha256})),config});
+await atomic('results/active-board-soak.json',{id:started.id,startedAt:new Date().toISOString(),seconds,images:selected.map(r=>({file:r.file,sha256:r.sha256})),profile,prompt:process.env.TEST_PROMPT||prompts[profile],sampleIntervalMs,config});
 console.log('STARTED '+started.id);
 let stop=false,stopRecorded=false,last,monitorErrors=0,telemetryErrors=0;const samples=[];
 process.on('SIGTERM',()=>{stop=true;});process.on('SIGINT',()=>{stop=true;});
