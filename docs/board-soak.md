@@ -46,7 +46,8 @@ sudo sh scripts/start-board-soak.sh
 | CONCURRENCY | 等于 SESSIONS | 请求并发数，不得超过声明的 session 数 |
 | MAX_TOKENS | 128 | 输出 token 上限，1–512 |
 | TEST_PROFILE | baseline | baseline / decode / prefill，提示词与用途见短测指南 |
-| PREFILL_REPEAT | 6 | prefill 规则重复次数，1–200；需核对实际上下文预算 |
+| SAMPLE_INTERVAL_MS | 5000 | 采样等待间隔，1000–10000 毫秒；实际周期还包括采集耗时 |
+| PREFILL_REPEAT | 6 | prefill 规则重复次数，1–400；需核对实际上下文预算 |
 
 采样汇总还包含 NPU 利用率有效样本数、均值、最大值和达到 90% 的样本数。约每 5 秒采样，可能漏掉峰值，均值包含起止阶段，不是连续时间积分。实际模型启动参数写入 model-command.txt。指标定义以 [Demo 指标口径](capacity-demo.md#指标口径) 为准。
 

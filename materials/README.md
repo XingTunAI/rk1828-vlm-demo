@@ -68,3 +68,7 @@
 | [fight-3.jpg](fight/unreviewed/fight-3.jpg) | Fadi (boxeur) | [CC0](http://creativecommons.org/publicdomain/zero/1.0/deed.en) | [来源](https://commons.wikimedia.org/wiki/File:Boxing_is_more_than_just_throwing_punches._it%E2%80%99s_surviving_the_grind_when_everything_in_your_body_is_screaming_to_stop._Sparring_tests_your_limits,_both_physically_and_mentally._It%E2%80%99s_the_rounds_where_you%E2%80%99re_gassed,_bru.jpg) |
 | [fire-2.jpg](fire/unreviewed/fire-2.jpg) | Nizil Shah | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) | [来源](https://commons.wikimedia.org/wiki/File:Holi_Bonfire_Festival_Mundra_Gujarat_India.jpg) |
 | [intrusion-1.jpg](intrusion/unreviewed/intrusion-1.jpg) | Simon Carey | [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0) | [来源](https://commons.wikimedia.org/wiki/File:Pedestrians_Crossing,_Ham_Lane_-_geograph.org.uk_-_255093.jpg) |
+
+## 视频素材
+
+[视频说明与许可](videos/README.md) · [离线视频图集](videos/index.html)。
