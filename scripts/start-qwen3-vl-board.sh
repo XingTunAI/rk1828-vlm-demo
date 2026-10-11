@@ -9,4 +9,4 @@ exec rkllm3-server -m llm.rknn \
  --vocab Qwen3-VL-4B.tokenizer.gguf --embed Qwen3-VL-4B.embed.bin \
  --img-start '<|vision_start|>' --img-end '<|vision_end|>' --img-content '<|image_pad|>' \
  --img-width 384 --img-height 384 --alias qwen3-vl-4b \
- --host 127.0.0.1 --port 8080 -c 768 --n-session 1
+ --host 127.0.0.1 --port 8080 -c "${CONTEXT_SIZE:-768}" --n-session "${SESSIONS:-1}"

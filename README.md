@@ -16,6 +16,8 @@
 
 图集使用与板端自主运行 4 小时测试、设备采样和停止条件见 [板端长测](docs/board-soak.md)。
 
+实测记录：[单并发约 2.6 小时结果](docs/single-session-result.md)、[多并发与 NPU 高负载短测](docs/short-load-tests.md)。
+
 ## 快速启动
 
 需要 Node.js 22 或更新版本，无第三方运行依赖。
