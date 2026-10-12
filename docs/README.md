@@ -44,3 +44,5 @@
 当前图片测试：[短提示词图片复核基线](image-review-test.md)。
 
 [公开方案与 SDK 原生对照 / 老化工具](native-comparison.md)。
+
+[2026-10-12 SDK 1.1.0 完整复测报告](sdk-1.1.0-retest.md)。

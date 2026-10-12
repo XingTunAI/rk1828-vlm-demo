@@ -112,3 +112,5 @@ SDK eval-perf在模型初始化阶段报告 `MODEL_SETUP fail, ack = ACK_FAIL`�
 已对齐公开方法、SDK版本、输入输出长度和CPU governor；NPU850MHz与原厂1GHz不同。原厂性能表未提供模型哈希及完整上下文配置，仍不能宣称完全相同条件。此次只复测语言部分，不能据此填入视觉耗时或图片FPS，也不是稳定性或准确率结论。
 
 测试正常退出，CPU策略已恢复；原始日志保存在本地results/upgrade-1.1.0/comparison.log，不上传GitHub。
+
+[2026-10-12 SDK 1.1.0 完整复测报告](sdk-1.1.0-retest.md)。
