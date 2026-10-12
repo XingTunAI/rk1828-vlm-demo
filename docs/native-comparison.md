@@ -92,3 +92,23 @@ SDK eval-perf在模型初始化阶段报告 `MODEL_SETUP fail, ack = ACK_FAIL`�
 测试后原模型服务已恢复，health返回ok。升级前已备份现有Runtime、主机侧固件文件和服务配置；尚未执行升级。当前SDK输出中的Runtime标识为1.0.4，其固件文件SHA256与板端现有文件相同，不能作为1.1.0升级包。
 
 官方模型与本地原始日志不提交GitHub。后续需配套版本验证，且v1.1.0测试结果不能直接标为对v1.0.4性能表的严格复现。
+
+
+## 1.1.0 配套升级后原厂方法复测（2026-10-12）
+
+板端Runtime和设备固件均已确认1.1.0。使用官方v1.1.0 Qwen3-VL-4B模型包，编译官方rknn3-aicp-1.1.0标签下未修改的eval-perf源文件（-O3 -DNDEBUG），RK3588 CPU governor临时设为performance，NPU保持M.2最高850MHz、PERFORMANCE模式，全核0xff。LLM独立输入128、输出128，程序执行3次并按官方说明排除Run0。
+
+模型查询得到max_ctx_len=1024，max_position_embeddings=8192；此前Firefly模型max_ctx_len=32768。模型产物及软件栈同时变化，不能将提升归因于单一因素。
+
+参考来源为SDK V1.1.0英文Release Notes第12页和第13页。原厂Qwen3-VL-4B：Vision108.23ms、LLM TTFT106.92ms、Decode89.95token/s；原厂采用RK3588 performance、PCIe、NPU1GHz、视觉与语言独立测试、LLM128/128。
+
+| 指标 | 原厂1.1.0 | 本机Run1 | 本机Run2 |
+| --- | ---: | ---: | ---: |
+| LLM TTFT(ms) | 106.92 | 119.37 | 119.49 |
+| Decode(token/s) | 89.95 | 85.82 | 85.80 |
+
+两次均值：TTFT119.43ms，比参考高约11.7%；Decode85.81token/s，为参考95.4%，低约4.6%。首次Run0为122.94ms和80.34token/s，不计入上述均值。Generate阶段计127token，首个输出计入Prefill。
+
+已对齐公开方法、SDK版本、输入输出长度和CPU governor；NPU850MHz与原厂1GHz不同。原厂性能表未提供模型哈希及完整上下文配置，仍不能宣称完全相同条件。此次只复测语言部分，不能据此填入视觉耗时或图片FPS，也不是稳定性或准确率结论。
+
+测试正常退出，CPU策略已恢复；原始日志保存在本地results/upgrade-1.1.0/comparison.log，不上传GitHub。
