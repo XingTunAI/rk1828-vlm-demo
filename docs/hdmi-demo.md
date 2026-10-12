@@ -1,5 +1,7 @@
 # HDMI 板端演示
 
+[文档导航](README.md)
+
 目标：RK3588 Host 的 HDMI 屏幕显示网页，RK1828 执行 VLM 推理。板端控制服务访问 `127.0.0.1:8080/v1`，无需开发电脑转发。
 
 部署目录 `/userdata/rk1828-vlm-demo`，包含 server.js、lib、public、materials。Node.js ARM64 运行时位于 runtime，本次使用官方 v22.23.3 并核对发布的 SHA256。网页服务以 linaro 用户运行：

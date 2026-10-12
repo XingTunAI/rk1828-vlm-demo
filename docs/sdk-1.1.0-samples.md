@@ -1,5 +1,7 @@
 # SDK 1.1.0 扩样重复性验证
 
+[文档导航](README.md)
+
 2026-10-12。延续官方Qwen3-VL-4B、Runtime/固件1.1.0、RK3588 performance、M.2 850MHz、全核0xff、上下文1024。原厂基准来源及对齐限制见[首轮报告](sdk-1.1.0-retest.md)。
 
 ## 方法与样本

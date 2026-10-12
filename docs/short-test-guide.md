@@ -1,5 +1,9 @@
 # 并发与 NPU 短测操作指南
 
+[文档导航](README.md)
+
+> 历史复现指南：以下长提示词、上下文及启动命令来自 1.0.4 / Firefly 配置，不直接适用官方 1.1.0 模型（max_ctx_len=1024）。新版优先按[业务图片方案](test-scope-correction.md)验证。
+
 > 2026-10-11 口径更正：长提示词高利用率不代表图片/视频复核业务能力。历史数据保留，后续优先增加短提示词图片任务。见[更正记录与新方案](test-scope-correction.md)。
 
 两类测试分别执行，不使用长时间测试：
@@ -18,7 +22,7 @@ TEST_PROFILE=prefill MAX_TOKENS=32 node scripts/board-soak.mjs 60
 
 ## 高负载配置扩展
 
-`PREFILL_REPEAT` 可控制规则重复次数（1–200，默认 6），操作者必须按实际模型上下文检查 token 预算。测试程序保存模型启动命令，便于核对真实上下文和 session。
+`PREFILL_REPEAT` 可控制规则重复次数（1–400，默认 6），操作者必须按实际模型上下文检查 token 预算。测试程序保存模型启动命令，便于核对真实上下文和 session。
 
 第三档负载短测使用单 session、上下文 2048、`PREFILL_REPEAT=36`、输出上限 32 token，持续输入 60 秒。服务启动命令需先设置 `CONTEXT_SIZE=2048`，再执行：
 
@@ -31,6 +35,6 @@ TEST_PROFILE=prefill PREFILL_REPEAT=36 MAX_TOKENS=32 node scripts/board-soak.mjs
 第四档负载短测进一步使用上下文 8192、PREFILL_REPEAT=160、输出上限 32，仍只持续输入 60 秒。该人工构造的大输入用于探索计算利用率，不代表日常复核提示词。
 
 
-实测成绩与异常见 [短测报告](short-load-tests.md)。当前模型与 SDK 组合的两 session 初测失败，以下并发命令是复现方法，不是已验证稳定配置。不要同时运行多个负载或多个 SMI 采集器。
+实测成绩与异常见 [短测报告](short-load-tests.md)。当时 1.0.4 模型与 SDK 组合的两 session 初测失败，以下并发命令是复现方法，不是已验证稳定配置。不要同时运行多个负载或多个 SMI 采集器。
 
 改变 CONTEXT_SIZE 或 SESSIONS 前，先结束负载、停止现有模型服务，再以新配置启动；不要在同一端口重复启动模型。完成后恢复默认配置，做少量真实图片请求确认恢复。
