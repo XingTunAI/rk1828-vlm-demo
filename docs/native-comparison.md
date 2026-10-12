@@ -81,3 +81,14 @@ Qwen3-VL-4B / RK1828 / 384×384：Vision117.6ms，LLM TTFT111.45ms，LLM Decode8
 当前模型README明确标明由Firefly AI Team转换，不是已经核实与Rockchip性能表一致的二进制产物。SDK eval源码实际使用模型max_ctx_len初始化session，命令行上下文参数只检查范围，不能通过改该参数声称已完成上下文对照。
 
 官方公开[Model Zoo下载说明](https://github.com/airockchip/rknn3-model-zoo/blob/main/README_CN.md)提供[RKNN3 SDK网盘](https://console.box.lenovo.com/l/H1fig1)，提取码rknn。2026-10-11查阅的公开main指向RKNN3_SDK/rknn3_models/v1.1.0；当前比较基准来自V1.0.4，尚未核实网盘中对应旧版Qwen3-VL-4B包及哈希，不将新版包等同于该表的原始测试包。
+
+
+## 官方 v1.1.0 模型加载验证（2026-10-11）
+
+官网下载的Qwen3-VL-4B包含LLM/视觉模型及权重、embedding和tokenizer六个文件，传到板端后SHA256全部通过。模型内部记录编译器1.1.0；板端仍为1.0.4 Runtime。
+
+SDK eval-perf在模型初始化阶段报告 `MODEL_SETUP fail, ack = ACK_FAIL`，随后退出码-6，未进入推理。因此没有有效TTFT或生成吞吐结果，不能将该次运行记为性能测试通过。版本不一致是优先排查因素，当前错误不足以认定唯一根因。
+
+测试后原模型服务已恢复，health返回ok。升级前已备份现有Runtime、主机侧固件文件和服务配置；尚未执行升级。当前SDK输出中的Runtime标识为1.0.4，其固件文件SHA256与板端现有文件相同，不能作为1.1.0升级包。
+
+官方模型与本地原始日志不提交GitHub。后续需配套版本验证，且v1.1.0测试结果不能直接标为对v1.0.4性能表的严格复现。
