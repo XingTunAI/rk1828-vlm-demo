@@ -1,0 +1,139 @@
+*******************************NEW TEST**********************************
+W RKNNAPI(2658): Weight sync chunk size resolved to 2097152 bytes
+GetVocabInfo: special_eos_id[1] = 151645
+GetVocabInfo: special_eos_id[2] = 151645
+GetVocabInfo: special_eog_id[3] = 128247
+GetVocabInfo: special_eog_id[4] = 151643
+GetVocabInfo: special_eog_id[5] = 151662
+GetVocabInfo: special_eog_id[6] = 151663
+GetVocabInfo: special_eog_id[7] = 151664
+
+=============================================================
+Max Context Length              : 1024    
+Max Position Embeddings         : 8192    
+Model Type                      : qwen3_vl
+Task Type                       : RKNN3_LLM_TASK_GENERATE
+Number of Input Tokens          : 128     
+Max New Tokens                  : 128     
+=============================================================
+
+W RKNNAPI(2658): Unable to correctly update mrope, using plain text mrope. input_type: 1
+
+Performance Statistics for Run 0: 
+-----------------------------------------------------------------------------------------
+ Stage      | Total Time (ms)  | Tokens   | Time per Token (ms)  | Tokens per Second    
+-----------------------------------------------------------------------------------------
+ Prefill    | 122.94           | 128      | 0.96                 | 1041.18              
+ Generate   | 1480.69          | 127      | 11.66                | 85.77                
+-----------------------------------------------------------------------------------------
+W RKNNAPI(2658): Unable to correctly update mrope, using plain text mrope. input_type: 1
+
+Performance Statistics for Run 1: 
+-----------------------------------------------------------------------------------------
+ Stage      | Total Time (ms)  | Tokens   | Time per Token (ms)  | Tokens per Second    
+-----------------------------------------------------------------------------------------
+ Prefill    | 119.42           | 128      | 0.93                 | 1071.84              
+ Generate   | 1481.15          | 127      | 11.66                | 85.74                
+-----------------------------------------------------------------------------------------
+W RKNNAPI(2658): Unable to correctly update mrope, using plain text mrope. input_type: 1
+
+Performance Statistics for Run 2: 
+-----------------------------------------------------------------------------------------
+ Stage      | Total Time (ms)  | Tokens   | Time per Token (ms)  | Tokens per Second    
+-----------------------------------------------------------------------------------------
+ Prefill    | 119.35           | 128      | 0.93                 | 1072.44              
+ Generate   | 1480.27          | 127      | 11.66                | 85.79                
+-----------------------------------------------------------------------------------------
+
+
+====================================================================================================================
+                                                  Performance Summary
+====================================================================================================================
+--------------------------------------------------------------------------------------------------------------------
+ Model Context   | Rope Length | Input Tokens  | New Tokens  | TTFT(ms)  | TPOT(ms)   | Prefill TPS   | Decode TPS 
+--------------------------------------------------------------------------------------------------------------------
+ 1024            | 8192        | 128           | 128         | 119.35    | 11.66      | 1072.44       | 85.79      
+--------------------------------------------------------------------------------------------------------------------
+
+*******************************END TEST**********************************
+llama_model_loader: loaded meta data with 31 key-value pairs and 0 tensors from /userdata/models/Qwen3-VL-4B-official-v1.1.0/Qwen3-VL-4B.tokenizer.gguf (version GGUF V3 (latest))
+llama_model_loader: Dumping metadata keys/values. Note: KV overrides do not apply in this output.
+llama_model_loader: - kv   0:                       general.architecture str              = qwen3vl
+llama_model_loader: - kv   1:                               general.type str              = model
+llama_model_loader: - kv   2:                               general.name str              = Qwen3 VL 4B Instruct
+llama_model_loader: - kv   3:                           general.finetune str              = Instruct
+llama_model_loader: - kv   4:                           general.basename str              = Qwen3-VL
+llama_model_loader: - kv   5:                         general.size_label str              = 4B
+llama_model_loader: - kv   6:                            general.license str              = apache-2.0
+llama_model_loader: - kv   7:                               general.tags arr[str,1]       = ["image-text-to-text"]
+llama_model_loader: - kv   8:                        qwen3vl.block_count u32              = 36
+llama_model_loader: - kv   9:                     qwen3vl.context_length u32              = 262144
+llama_model_loader: - kv  10:                   qwen3vl.embedding_length u32              = 2560
+llama_model_loader: - kv  11:                qwen3vl.feed_forward_length u32              = 9728
+llama_model_loader: - kv  12:               qwen3vl.attention.head_count u32              = 32
+llama_model_loader: - kv  13:            qwen3vl.attention.head_count_kv u32              = 8
+llama_model_loader: - kv  14:                     qwen3vl.rope.freq_base f32              = 5000000.000000
+llama_model_loader: - kv  15:   qwen3vl.attention.layer_norm_rms_epsilon f32              = 0.000001
+llama_model_loader: - kv  16:               qwen3vl.attention.key_length u32              = 128
+llama_model_loader: - kv  17:             qwen3vl.attention.value_length u32              = 128
+llama_model_loader: - kv  18:                          general.file_type u32              = 1
+llama_model_loader: - kv  19:            qwen3vl.rope.dimension_sections arr[i32,4]       = [24, 20, 20, 0]
+llama_model_loader: - kv  20:               general.quantization_version u32              = 2
+llama_model_loader: - kv  21:                       tokenizer.ggml.model str              = gpt2
+llama_model_loader: - kv  22:                         tokenizer.ggml.pre str              = qwen2
+llama_model_loader: - kv  23:                      tokenizer.ggml.tokens arr[str,151936]  = ["!", "\"", "#", "$", "%", "&", "'", ...
+llama_model_loader: - kv  24:                  tokenizer.ggml.token_type arr[i32,151936]  = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+llama_model_loader: - kv  25:                      tokenizer.ggml.merges arr[str,151387]  = ["Ġ Ġ", "ĠĠ ĠĠ", "i n", "Ġ t",...
+llama_model_loader: - kv  26:                tokenizer.ggml.eos_token_id u32              = 151645
+llama_model_loader: - kv  27:            tokenizer.ggml.padding_token_id u32              = 151643
+llama_model_loader: - kv  28:                tokenizer.ggml.bos_token_id u32              = 151643
+llama_model_loader: - kv  29:               tokenizer.ggml.add_bos_token bool             = false
+llama_model_loader: - kv  30:                    tokenizer.chat_template str              = {%- if tools %}\n    {{- '<|im_start|>...
+init_tokenizer: initializing tokenizer for type 2
+load: 0 unused tokens
+load: control token: 151660 '<|fim_middle|>' is not marked as EOG
+load: control token: 151659 '<|fim_prefix|>' is not marked as EOG
+load: control token: 151653 '<|vision_end|>' is not marked as EOG
+load: control token: 151648 '<|box_start|>' is not marked as EOG
+load: control token: 151646 '<|object_ref_start|>' is not marked as EOG
+load: control token: 151649 '<|box_end|>' is not marked as EOG
+load: control-looking token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden
+load: control token: 151655 '<|image_pad|>' is not marked as EOG
+load: control token: 151651 '<|quad_end|>' is not marked as EOG
+load: control token: 151647 '<|object_ref_end|>' is not marked as EOG
+load: control token: 151652 '<|vision_start|>' is not marked as EOG
+load: control token: 151654 '<|vision_pad|>' is not marked as EOG
+load: control token: 151656 '<|video_pad|>' is not marked as EOG
+load: control token: 151644 '<|im_start|>' is not marked as EOG
+load: control token: 151661 '<|fim_suffix|>' is not marked as EOG
+load: control token: 151650 '<|quad_start|>' is not marked as EOG
+load: printing all EOG tokens:
+load:   - 128247 ('</s>')
+load:   - 151643 ('<|endoftext|>')
+load:   - 151645 ('<|im_end|>')
+load:   - 151662 ('<|fim_pad|>')
+load:   - 151663 ('<|repo_name|>')
+load:   - 151664 ('<|file_sep|>')
+load: special tokens cache size = 27
+load: token to piece cache size = 0.9311 MB
+print_info: vocab type            = BPE
+print_info: n_vocab               = 151936
+print_info: n_merges              = 151387
+print_info: BOS token             = 151643 '<|endoftext|>'
+print_info: EOS token             = 151645 '<|im_end|>'
+print_info: EOT token             = 151645 '<|im_end|>'
+print_info: PAD token             = 151643 '<|endoftext|>'
+print_info: LF token              = 198 'Ċ'
+print_info: FIM PRE token         = 151659 '<|fim_prefix|>'
+print_info: FIM SUF token         = 151661 '<|fim_suffix|>'
+print_info: FIM MID token         = 151660 '<|fim_middle|>'
+print_info: FIM PAD token         = 151662 '<|fim_pad|>'
+print_info: FIM REP token         = 151663 '<|repo_name|>'
+print_info: FIM SEP token         = 151664 '<|file_sep|>'
+print_info: EOG token             = 128247 '</s>'
+print_info: EOG token             = 151643 '<|endoftext|>'
+print_info: EOG token             = 151645 '<|im_end|>'
+print_info: EOG token             = 151662 '<|fim_pad|>'
+print_info: EOG token             = 151663 '<|repo_name|>'
+print_info: EOG token             = 151664 '<|file_sep|>'
+print_info: max token length      = 256

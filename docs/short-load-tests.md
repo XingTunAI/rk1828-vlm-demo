@@ -1,5 +1,6 @@
 # 多并发与 NPU 高负载短测报告
 
+> 历史记录：自建网页、业务脚本与素材已移除，旧命令不再是当前运行入口。当前方法见 [原厂使用说明](usage.md)。
 [文档导航](README.md)
 
 > 历史短测记录，适用于下述 1.0.4 配置；失败记录保留，升级后并发能力需要重新验证。
@@ -8,7 +9,7 @@
 
 验证日期：2026-10-11。配置：RK3588 + RK1828，Qwen3-VL-4B W4A16，视觉 384×384，RKLLM3 Server 1.0.4。
 
-[文档导航](README.md) · [复现步骤](short-test-guide.md) · [单并发稳定性报告](single-session-result.md)
+[文档导航](README.md) · [复现步骤](usage.md) · [单并发稳定性报告](single-session-result.md)
 
 结论：两 session / 两并发初测未通过；单 session 增大输入后，NPU 采样最高 93%、均值 73.8%，尚未验证持续满载。所有短测已经结束。
 

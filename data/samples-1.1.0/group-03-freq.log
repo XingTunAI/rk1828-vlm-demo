@@ -1,0 +1,6 @@
+  Device ID                     : 0
+  Chip Count                    : 1
+    Chip ID                       : 0
+    Current NPU Freq(MHz)         : 850
+    Available NPU Freq(MHz)       : 400    500    850    
+

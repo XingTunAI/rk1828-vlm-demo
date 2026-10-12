@@ -42,10 +42,12 @@
 - 独立语言性能：官方 Model Zoo 的 `tools/rknn3_llm_test`，方法见其 README；扩样仅修改重复次数，保留输入输出与预热口径。
 - 独立视觉：`rknn3_model_test`；本轮逐次记录输入同步、run、输出同步。
 - 图文及老化：SDK 安装包中的 `rknn3_vlm_demo`；相关源码位于 `package/rknn3-test/rknn3_stress_test`。`-cl` 为循环次数，`-tl` 为小时数，`-vl/-ll` 为阶段循环次数，实际参数以匹配版本的 `--help` 为准。
-- 业务负载：本项目[板端运行器](board-soak.md)，测图片请求、排队、失败和资源曲线，与原生阶段性能分开统计。
+- 历史业务负载结果保留在报告索引；自建板端运行器已移除。
 
 官方资料入口：[Model Zoo](https://github.com/airockchip/rknn3-model-zoo)、[Qwen3-VL 示例](https://github.com/airockchip/rknn3-model-zoo/tree/main/examples/Qwen3_VL)。
 
 ## 历史记录
 
 旧版原厂表、CPU 策略与亲和性排查、官方模型在旧 Runtime 上加载失败、升级首次结果统一保存在[排查历史](native-comparison-history.md)。原始 `results/` 不上传 GitHub。
+
+本次整理已将新版精选逐次 CSV、原生日志和命令记录纳入 [data/](../data/README.md)；完整 results、模型权重和 SDK 安装包仍仅在本地保存。

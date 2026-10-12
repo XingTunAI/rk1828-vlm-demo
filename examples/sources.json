@@ -1,0 +1,24 @@
+{
+  "repository": "https://github.com/airockchip/rknn3-model-zoo",
+  "retrieved": "2026-10-11",
+  "revision": "main snapshot; full clone unavailable, hashes preserved",
+  "files": [
+    {
+      "file": "results/qwen-main.cc",
+      "sha256": "0a895a9486ceb4c5168cfad32bf30ac361f04574c42db2f8d2413616238b44cf"
+    },
+    {
+      "file": "results/qwen-vl.cc",
+      "sha256": "056303099417c9f4a83ec3430272011c60eabf095408f7e7bf672012bd4eea76"
+    },
+    {
+      "file": "results/qwen-CMakeLists.txt",
+      "sha256": "2187d5c800512602dd7e5b064f2a60f9b25c01f06cae6f19da8d4c4b62f1a7d3"
+    },
+    {
+      "file": "results/public-qwen-demo.jpg",
+      "sha256": "58c5c9898c5359bcf53797711e3d954c8ef529e141cb012ffc433376933839e7"
+    }
+  ],
+  "note": "Installed SDK binary is a separate native comparison, not claimed identical to public C++ source or published table."
+}

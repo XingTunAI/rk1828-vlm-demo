@@ -1,0 +1,178 @@
+
+===== RKNN3_VLM_TEST Configuration =====
+vision_model: /userdata/models/Qwen3-VL-4B-official-v1.1.0/vision_Qwen3-VL-4B.rknn
+vision_weight: /userdata/models/Qwen3-VL-4B-official-v1.1.0/vision_Qwen3-VL-4B.weight
+llm_model: /userdata/models/Qwen3-VL-4B-official-v1.1.0/llm_Qwen3-VL-4B.rknn
+llm_weight: /userdata/models/Qwen3-VL-4B-official-v1.1.0/llm_Qwen3-VL-4B.weight
+tokenizer: /userdata/models/Qwen3-VL-4B-official-v1.1.0/Qwen3-VL-4B.tokenizer.gguf
+embedding: /userdata/models/Qwen3-VL-4B-official-v1.1.0/Qwen3-VL-4B.embed.bin
+vision_core_mask: 0xff
+llm_core_mask: 0xff
+image_path: /userdata/rk1828-vlm-demo/results/public-native/demo.jpg
+prompt.ini: /userdata/rk1828-vlm-demo/results/public-native/prompt.ini
+vision_loop: 3
+llm_loop: 3
+device_id: 0
+time_loop: 0.00 hours
+=======================================
+
+Loading tokenizer from /userdata/models/Qwen3-VL-4B-official-v1.1.0/Qwen3-VL-4B.tokenizer.gguf
+GetVocabInfo: special_eos_id[1] = 151645
+GetVocabInfo: special_eos_id[2] = 151645
+GetVocabInfo: special_eog_id[3] = 128247
+GetVocabInfo: special_eog_id[4] = 151643
+GetVocabInfo: special_eog_id[5] = 151662
+GetVocabInfo: special_eog_id[6] = 151663
+GetVocabInfo: special_eog_id[7] = 151664
+vocab_info: vocab_size=151936 n_special_bos_id=1 n_special_eos_id=7
+Opening embedding file: /userdata/models/Qwen3-VL-4B-official-v1.1.0/Qwen3-VL-4B.embed.bin
+Embedding file size: 777912320 bytes
+Embedding mmap success, dim=2560
+[STAGE] start loading model
+--> init rknn3_vlm vision model
+[rknn3_stress_test_log] device[0].id=0000:01:00.0
+W RKNNAPI(2714): Weight sync chunk size resolved to 2097152 bytes
+[rknn3_stress_test_log] Vision model requires 8 NPU cores
+[rknn3_stress_test_log] User specified vision_core_mask: 0xff
+model input num: 1, output num: 4
+input tensors:
+Tensor: name=pixel, n_dims=4, shape=[1, 384, 384, 3], stride=[442368, 1152, 3, 1], aligned_size=442368, layout=NHWC, dtype=UINT8, core_id=0, qnt_type=NONE
+output tensors:
+Tensor: name=4315, n_dims=2, shape=[144, 2560], stride=[2560, 1], aligned_size=737280, layout=UNDEFINED, dtype=FP16, core_id=0, qnt_type=NONE
+Tensor: name=1554, n_dims=2, shape=[144, 2560], stride=[2560, 1], aligned_size=737280, layout=UNDEFINED, dtype=FP16, core_id=0, qnt_type=NONE
+Tensor: name=2475, n_dims=2, shape=[144, 2560], stride=[2560, 1], aligned_size=737280, layout=UNDEFINED, dtype=FP16, core_id=0, qnt_type=NONE
+Tensor: name=3396, n_dims=2, shape=[144, 2560], stride=[2560, 1], aligned_size=737280, layout=UNDEFINED, dtype=FP16, core_id=0, qnt_type=NONE
+model is NHWC input layout
+input image height=384, input image width=384, input image channel=3
+model is UNDEFINED output layout
+--> init rknn3_vlm llm model
+[rknn3_stress_test_log] device[0].id=0000:01:00.0
+[rknn3_stress_test_log] LLM model requires 8 NPU cores
+[rknn3_stress_test_log] User specified llm_core_mask: 0xff
+[rknn3_stress_test_log] Auto-detected max context length: 1024
+deepstack_aligned_size = 737280 
+deepstack_aligned_size = 737280 
+deepstack_aligned_size = 737280 
+--> init internal share
+vision model mem.
+llm model mem.
+[STAGE] model loaded
+origin size=1024x640 crop size=1024x640
+input image: 1024 x 640, subsampling: 4:2:0, colorspace: YCbCr, orientation: 1
+[STAGE] model inited
+[STAGE] start inference
+rga_api version 1.10.1_[0]
+This is a stylized, surreal image of an astronaut sitting on the moon’s surface. The astronaut—wearing a white spacesuit with a reflective gold helmet—is reclined in a green cooler, holding up a glowing green bottle as if toasting or celebrating.
+
+In the background, Earth looms large against the starry black sky, suggesting a vast cosmic setting. A ladder leans nearby on the lunar terrain, hinting at human presence and exploration. The scene blends realism with fantasy—perhaps symbolizing solitude, achievement, or even leisure in space—with dramatic lighting that highlights the astronaut’s relaxed posture.
+
+The overall mood is contemplative yet whimsical—a moment of quiet celebration against the backdrop of humanity's reach into outer space.[STAGE] step 1/3
+This is a stylized, surreal image of an astronaut sitting on the moon’s surface. The astronaut—wearing a white spacesuit with a reflective gold helmet—is reclined in a green cooler, holding up a glowing green bottle as if toasting or celebrating.
+
+In the background, Earth looms large against the starry black sky, suggesting a vast cosmic setting. A ladder leans nearby on the lunar terrain, hinting at human presence and exploration. The scene blends realism with fantasy—perhaps symbolizing solitude, achievement, or even leisure in space—with dramatic lighting that highlights the astronaut’s relaxed posture.
+
+The overall mood is contemplative yet whimsical—a moment of quiet celebration against the backdrop of humanity's reach into outer space.[STAGE] step 2/3
+This is a stylized, surreal image of an astronaut sitting on the moon’s surface. The astronaut—wearing a white spacesuit with a reflective gold helmet—is reclined in a green cooler, holding up a glowing green bottle as if toasting or celebrating.
+
+In the background, Earth looms large against the starry black sky, suggesting a vast cosmic setting. A ladder leans nearby on the lunar terrain, hinting at human presence and exploration. The scene blends realism with fantasy—perhaps symbolizing solitude, achievement, or even leisure in space—with dramatic lighting that highlights the astronaut’s relaxed posture.
+
+The overall mood is contemplative yet whimsical—a moment of quiet celebration against the backdrop of humanity's reach into outer space.[STAGE] step 3/3
+[STAGE] end
+
+===== RKNN3_VLM_TEST Results Summary =====
+
+Model: llm_Qwen3-VL-4B.rknn
+DeviceID: 0000:01:00.0
+LoadVisionModelTime: 2559.861 ms
+LoadLLMModelTime: 21177.535 ms
+ModelMemory: 2703.165 MB
+Vision: 115 ms
+GenLen: 147 tokens
+TTFT: 132.565 ms
+TPS: 85.090 tokens/s
+TotalTime: 6313.833 ms
+TotalRuns: 3
+
+=================================
+[rknn3_model_stress_test_done]
+llama_model_loader: loaded meta data with 31 key-value pairs and 0 tensors from /userdata/models/Qwen3-VL-4B-official-v1.1.0/Qwen3-VL-4B.tokenizer.gguf (version GGUF V3 (latest))
+llama_model_loader: Dumping metadata keys/values. Note: KV overrides do not apply in this output.
+llama_model_loader: - kv   0:                       general.architecture str              = qwen3vl
+llama_model_loader: - kv   1:                               general.type str              = model
+llama_model_loader: - kv   2:                               general.name str              = Qwen3 VL 4B Instruct
+llama_model_loader: - kv   3:                           general.finetune str              = Instruct
+llama_model_loader: - kv   4:                           general.basename str              = Qwen3-VL
+llama_model_loader: - kv   5:                         general.size_label str              = 4B
+llama_model_loader: - kv   6:                            general.license str              = apache-2.0
+llama_model_loader: - kv   7:                               general.tags arr[str,1]       = ["image-text-to-text"]
+llama_model_loader: - kv   8:                        qwen3vl.block_count u32              = 36
+llama_model_loader: - kv   9:                     qwen3vl.context_length u32              = 262144
+llama_model_loader: - kv  10:                   qwen3vl.embedding_length u32              = 2560
+llama_model_loader: - kv  11:                qwen3vl.feed_forward_length u32              = 9728
+llama_model_loader: - kv  12:               qwen3vl.attention.head_count u32              = 32
+llama_model_loader: - kv  13:            qwen3vl.attention.head_count_kv u32              = 8
+llama_model_loader: - kv  14:                     qwen3vl.rope.freq_base f32              = 5000000.000000
+llama_model_loader: - kv  15:   qwen3vl.attention.layer_norm_rms_epsilon f32              = 0.000001
+llama_model_loader: - kv  16:               qwen3vl.attention.key_length u32              = 128
+llama_model_loader: - kv  17:             qwen3vl.attention.value_length u32              = 128
+llama_model_loader: - kv  18:                          general.file_type u32              = 1
+llama_model_loader: - kv  19:            qwen3vl.rope.dimension_sections arr[i32,4]       = [24, 20, 20, 0]
+llama_model_loader: - kv  20:               general.quantization_version u32              = 2
+llama_model_loader: - kv  21:                       tokenizer.ggml.model str              = gpt2
+llama_model_loader: - kv  22:                         tokenizer.ggml.pre str              = qwen2
+llama_model_loader: - kv  23:                      tokenizer.ggml.tokens arr[str,151936]  = ["!", "\"", "#", "$", "%", "&", "'", ...
+llama_model_loader: - kv  24:                  tokenizer.ggml.token_type arr[i32,151936]  = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+llama_model_loader: - kv  25:                      tokenizer.ggml.merges arr[str,151387]  = ["Ġ Ġ", "ĠĠ ĠĠ", "i n", "Ġ t",...
+llama_model_loader: - kv  26:                tokenizer.ggml.eos_token_id u32              = 151645
+llama_model_loader: - kv  27:            tokenizer.ggml.padding_token_id u32              = 151643
+llama_model_loader: - kv  28:                tokenizer.ggml.bos_token_id u32              = 151643
+llama_model_loader: - kv  29:               tokenizer.ggml.add_bos_token bool             = false
+llama_model_loader: - kv  30:                    tokenizer.chat_template str              = {%- if tools %}\n    {{- '<|im_start|>...
+init_tokenizer: initializing tokenizer for type 2
+load: 0 unused tokens
+load: control token: 151660 '<|fim_middle|>' is not marked as EOG
+load: control token: 151659 '<|fim_prefix|>' is not marked as EOG
+load: control token: 151653 '<|vision_end|>' is not marked as EOG
+load: control token: 151648 '<|box_start|>' is not marked as EOG
+load: control token: 151646 '<|object_ref_start|>' is not marked as EOG
+load: control token: 151649 '<|box_end|>' is not marked as EOG
+load: control-looking token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden
+load: control token: 151655 '<|image_pad|>' is not marked as EOG
+load: control token: 151651 '<|quad_end|>' is not marked as EOG
+load: control token: 151647 '<|object_ref_end|>' is not marked as EOG
+load: control token: 151652 '<|vision_start|>' is not marked as EOG
+load: control token: 151654 '<|vision_pad|>' is not marked as EOG
+load: control token: 151656 '<|video_pad|>' is not marked as EOG
+load: control token: 151644 '<|im_start|>' is not marked as EOG
+load: control token: 151661 '<|fim_suffix|>' is not marked as EOG
+load: control token: 151650 '<|quad_start|>' is not marked as EOG
+load: printing all EOG tokens:
+load:   - 128247 ('</s>')
+load:   - 151643 ('<|endoftext|>')
+load:   - 151645 ('<|im_end|>')
+load:   - 151662 ('<|fim_pad|>')
+load:   - 151663 ('<|repo_name|>')
+load:   - 151664 ('<|file_sep|>')
+load: special tokens cache size = 27
+load: token to piece cache size = 0.9311 MB
+print_info: vocab type            = BPE
+print_info: n_vocab               = 151936
+print_info: n_merges              = 151387
+print_info: BOS token             = 151643 '<|endoftext|>'
+print_info: EOS token             = 151645 '<|im_end|>'
+print_info: EOT token             = 151645 '<|im_end|>'
+print_info: PAD token             = 151643 '<|endoftext|>'
+print_info: LF token              = 198 'Ċ'
+print_info: FIM PRE token         = 151659 '<|fim_prefix|>'
+print_info: FIM SUF token         = 151661 '<|fim_suffix|>'
+print_info: FIM MID token         = 151660 '<|fim_middle|>'
+print_info: FIM PAD token         = 151662 '<|fim_pad|>'
+print_info: FIM REP token         = 151663 '<|repo_name|>'
+print_info: FIM SEP token         = 151664 '<|file_sep|>'
+print_info: EOG token             = 128247 '</s>'
+print_info: EOG token             = 151643 '<|endoftext|>'
+print_info: EOG token             = 151645 '<|im_end|>'
+print_info: EOG token             = 151662 '<|fim_pad|>'
+print_info: EOG token             = 151663 '<|repo_name|>'
+print_info: EOG token             = 151664 '<|file_sep|>'
+print_info: max token length      = 256

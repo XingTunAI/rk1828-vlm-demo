@@ -21,3 +21,7 @@ node_modules/
 
 # Interrupted material downloads
 /materials/**/*.part
+
+# Local official SDK packages and model binaries
+/official/local/
+/models/local/

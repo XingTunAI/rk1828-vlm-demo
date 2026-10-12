@@ -1,0 +1,4 @@
+metric,value,unit,sdk,npu_mhz,source,page
+llm_decode,89.95,token/s,1.1.0,1000,00_RKNN3_SDK_Release_Notes_V1.1.0.pdf,12
+llm_ttft,106.92,ms,1.1.0,1000,00_RKNN3_SDK_Release_Notes_V1.1.0.pdf,12
+vision,108.23,ms,1.1.0,1000,00_RKNN3_SDK_Release_Notes_V1.1.0.pdf,12

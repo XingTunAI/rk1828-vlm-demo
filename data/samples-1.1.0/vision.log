@@ -1,0 +1,195 @@
+Decryption key: not provided, loading as plain model
+shape_id: 0
+enable_output_checksum: 1
+Model load: path (rknn3_load_model_from_path)
+Golden output paths not provided, skipping cosine similarity
+Found 1 RK182X devices
+  Device 0: transfer_type=PCIE, id=0000:01:00.0
+Info: Only one device found (id=0000:01:00.0), init_extend can be NULL
+W RKNNAPI(4378): Weight sync chunk size resolved to 2097152 bytes
+rknn3_init success, cost 219.419 ms
+Device Memory Info: total=18 MB, free=18 MB
+  Node 0: total=639 MB, free=639 MB
+  Node 1: total=639 MB, free=639 MB
+  Node 2: total=619 MB, free=619 MB
+  Node 3: total=639 MB, free=639 MB
+  Node 4: total=619 MB, free=619 MB
+  Node 5: total=614 MB, free=614 MB
+  Node 6: total=639 MB, free=639 MB
+  Node 7: total=639 MB, free=639 MB
+model_path=/userdata/models/Qwen3-VL-4B-official-v1.1.0/vision_Qwen3-VL-4B.rknn, weight_path=/userdata/models/Qwen3-VL-4B-official-v1.1.0/vision_Qwen3-VL-4B.weight
+rknn3_load_model_from_path success, cost 24.015 ms
+Core number: 8
+rknn3_model_init success, cost 2292.869 ms
+Core 0 allocation info: kvcache_size=0
+Core 1 allocation info: kvcache_size=0
+Core 2 allocation info: kvcache_size=0
+Core 3 allocation info: kvcache_size=0
+Core 4 allocation info: kvcache_size=0
+Core 5 allocation info: kvcache_size=0
+Core 6 allocation info: kvcache_size=0
+Core 7 allocation info: kvcache_size=0
+No KV cache memory is required by this model
+Model supports 1 shape combinations
+Current shape ID: 0
+Shape 0 (ID: 0) [Default]:
+  Input 0 (pixel): [1, 384, 384, 3] Aligned size: 442368 bytes
+input tensors:
+  name=pixel, n_dims=4, shape=[1, 384, 384, 3], stride=[442368, 1152, 3, 1], aligned_size=442368, layout=NHWC, dtype=UINT8, qnt_type=NONE, scale=1.00000, zero_point=0
+output tensors:
+  name=4315, n_dims=2, shape=[144, 2560], stride=[2560, 1], aligned_size=737280, layout=UNDEFINED, dtype=FP16, qnt_type=NONE, scale=1.00000, zero_point=0
+  name=1554, n_dims=2, shape=[144, 2560], stride=[2560, 1], aligned_size=737280, layout=UNDEFINED, dtype=FP16, qnt_type=NONE, scale=1.00000, zero_point=0
+  name=2475, n_dims=2, shape=[144, 2560], stride=[2560, 1], aligned_size=737280, layout=UNDEFINED, dtype=FP16, qnt_type=NONE, scale=1.00000, zero_point=0
+  name=3396, n_dims=2, shape=[144, 2560], stride=[2560, 1], aligned_size=737280, layout=UNDEFINED, dtype=FP16, qnt_type=NONE, scale=1.00000, zero_point=0
+Input 0 size check passed: 442368 elements
+Input[0] first values (type: 3):
+[0] UINT8: 184
+[1] UINT8: 175
+[2] UINT8: 172
+[3] UINT8: 165
+[4] UINT8: 160
+[5] UINT8: 157
+[6] UINT8: 160
+[7] UINT8: 160
+[8] UINT8: 169
+[9] UINT8: 167
+Running model 101 times...
+Loop 1 output[0] baseline checksum: 0xd8a4dd27a386b48d
+Loop 1 output[1] baseline checksum: 0xb2a34ea92c56bb62
+Loop 1 output[2] baseline checksum: 0x7bdef225b823c948
+Loop 1 output[3] baseline checksum: 0x91d5b514d1b5c7bc
+loop 1: input sync 1.845 ms, run 98.845 ms, output sync 12.970 ms, total 113.660 ms
+loop 2: input sync 1.861 ms, run 98.809 ms, output sync 12.717 ms, total 113.387 ms
+loop 3: input sync 1.809 ms, run 98.839 ms, output sync 12.974 ms, total 113.622 ms
+loop 4: input sync 1.935 ms, run 98.919 ms, output sync 13.114 ms, total 113.968 ms
+loop 5: input sync 1.946 ms, run 98.900 ms, output sync 13.260 ms, total 114.106 ms
+loop 6: input sync 1.930 ms, run 98.943 ms, output sync 13.049 ms, total 113.922 ms
+loop 7: input sync 1.968 ms, run 98.972 ms, output sync 12.955 ms, total 113.895 ms
+loop 8: input sync 1.941 ms, run 98.938 ms, output sync 13.147 ms, total 114.026 ms
+loop 9: input sync 1.950 ms, run 99.000 ms, output sync 12.996 ms, total 113.946 ms
+loop 10: input sync 1.935 ms, run 98.952 ms, output sync 13.085 ms, total 113.972 ms
+loop 11: input sync 1.916 ms, run 98.849 ms, output sync 13.016 ms, total 113.781 ms
+loop 12: input sync 1.956 ms, run 98.973 ms, output sync 13.181 ms, total 114.110 ms
+loop 13: input sync 1.936 ms, run 98.951 ms, output sync 13.093 ms, total 113.980 ms
+loop 14: input sync 1.931 ms, run 98.969 ms, output sync 13.230 ms, total 114.130 ms
+loop 15: input sync 1.941 ms, run 98.948 ms, output sync 13.565 ms, total 114.454 ms
+loop 16: input sync 1.926 ms, run 98.962 ms, output sync 13.233 ms, total 114.121 ms
+loop 17: input sync 1.977 ms, run 98.863 ms, output sync 13.039 ms, total 113.879 ms
+loop 18: input sync 1.910 ms, run 98.926 ms, output sync 13.133 ms, total 113.969 ms
+loop 19: input sync 1.920 ms, run 99.012 ms, output sync 12.973 ms, total 113.905 ms
+loop 20: input sync 1.928 ms, run 98.935 ms, output sync 13.080 ms, total 113.943 ms
+loop 21: input sync 1.941 ms, run 98.920 ms, output sync 13.170 ms, total 114.031 ms
+loop 22: input sync 1.932 ms, run 98.916 ms, output sync 13.052 ms, total 113.900 ms
+loop 23: input sync 1.940 ms, run 99.024 ms, output sync 13.050 ms, total 114.014 ms
+loop 24: input sync 1.922 ms, run 99.013 ms, output sync 13.265 ms, total 114.200 ms
+loop 25: input sync 1.915 ms, run 98.967 ms, output sync 13.128 ms, total 114.010 ms
+loop 26: input sync 1.916 ms, run 99.014 ms, output sync 13.075 ms, total 114.005 ms
+loop 27: input sync 1.927 ms, run 99.016 ms, output sync 13.089 ms, total 114.032 ms
+loop 28: input sync 1.947 ms, run 98.957 ms, output sync 13.310 ms, total 114.214 ms
+loop 29: input sync 1.952 ms, run 98.962 ms, output sync 13.099 ms, total 114.013 ms
+loop 30: input sync 1.934 ms, run 98.935 ms, output sync 13.207 ms, total 114.076 ms
+loop 31: input sync 1.901 ms, run 98.914 ms, output sync 13.127 ms, total 113.942 ms
+loop 32: input sync 1.947 ms, run 98.940 ms, output sync 13.420 ms, total 114.307 ms
+loop 33: input sync 1.974 ms, run 99.103 ms, output sync 14.250 ms, total 115.327 ms
+loop 34: input sync 1.943 ms, run 98.908 ms, output sync 13.343 ms, total 114.194 ms
+loop 35: input sync 1.917 ms, run 98.969 ms, output sync 12.988 ms, total 113.874 ms
+loop 36: input sync 1.959 ms, run 98.943 ms, output sync 13.205 ms, total 114.107 ms
+loop 37: input sync 1.916 ms, run 98.924 ms, output sync 13.063 ms, total 113.903 ms
+loop 38: input sync 1.924 ms, run 98.987 ms, output sync 12.995 ms, total 113.906 ms
+loop 39: input sync 1.946 ms, run 98.895 ms, output sync 13.183 ms, total 114.024 ms
+loop 40: input sync 2.002 ms, run 98.940 ms, output sync 13.142 ms, total 114.084 ms
+loop 41: input sync 1.954 ms, run 98.992 ms, output sync 13.071 ms, total 114.017 ms
+loop 42: input sync 1.931 ms, run 98.907 ms, output sync 12.984 ms, total 113.822 ms
+loop 43: input sync 1.935 ms, run 98.905 ms, output sync 13.149 ms, total 113.989 ms
+loop 44: input sync 1.955 ms, run 98.985 ms, output sync 13.110 ms, total 114.050 ms
+loop 45: input sync 1.912 ms, run 98.973 ms, output sync 13.079 ms, total 113.964 ms
+loop 46: input sync 1.947 ms, run 98.975 ms, output sync 13.131 ms, total 114.053 ms
+loop 47: input sync 1.956 ms, run 98.970 ms, output sync 13.142 ms, total 114.068 ms
+loop 48: input sync 1.930 ms, run 98.905 ms, output sync 13.063 ms, total 113.898 ms
+loop 49: input sync 1.928 ms, run 98.990 ms, output sync 13.142 ms, total 114.060 ms
+loop 50: input sync 1.958 ms, run 99.026 ms, output sync 13.673 ms, total 114.657 ms
+loop 51: input sync 2.023 ms, run 99.011 ms, output sync 13.689 ms, total 114.723 ms
+loop 52: input sync 1.933 ms, run 99.003 ms, output sync 13.230 ms, total 114.166 ms
+loop 53: input sync 1.952 ms, run 99.038 ms, output sync 13.060 ms, total 114.050 ms
+loop 54: input sync 1.966 ms, run 98.936 ms, output sync 13.074 ms, total 113.976 ms
+loop 55: input sync 1.948 ms, run 98.889 ms, output sync 13.036 ms, total 113.873 ms
+loop 56: input sync 1.976 ms, run 98.972 ms, output sync 13.117 ms, total 114.065 ms
+loop 57: input sync 1.929 ms, run 98.997 ms, output sync 13.147 ms, total 114.073 ms
+loop 58: input sync 1.938 ms, run 98.939 ms, output sync 12.951 ms, total 113.828 ms
+loop 59: input sync 1.959 ms, run 98.950 ms, output sync 13.112 ms, total 114.021 ms
+loop 60: input sync 1.950 ms, run 99.016 ms, output sync 13.203 ms, total 114.169 ms
+loop 61: input sync 1.972 ms, run 98.957 ms, output sync 13.143 ms, total 114.072 ms
+loop 62: input sync 1.968 ms, run 98.996 ms, output sync 13.092 ms, total 114.056 ms
+loop 63: input sync 1.972 ms, run 98.940 ms, output sync 13.070 ms, total 113.982 ms
+loop 64: input sync 1.941 ms, run 98.915 ms, output sync 12.813 ms, total 113.669 ms
+loop 65: input sync 1.925 ms, run 99.039 ms, output sync 12.958 ms, total 113.922 ms
+loop 66: input sync 1.935 ms, run 98.942 ms, output sync 13.114 ms, total 113.991 ms
+loop 67: input sync 1.935 ms, run 99.001 ms, output sync 13.053 ms, total 113.989 ms
+loop 68: input sync 1.941 ms, run 99.015 ms, output sync 13.426 ms, total 114.382 ms
+loop 69: input sync 1.923 ms, run 99.024 ms, output sync 13.696 ms, total 114.643 ms
+loop 70: input sync 2.121 ms, run 99.042 ms, output sync 13.196 ms, total 114.359 ms
+loop 71: input sync 1.976 ms, run 98.873 ms, output sync 13.058 ms, total 113.907 ms
+loop 72: input sync 1.970 ms, run 98.908 ms, output sync 13.012 ms, total 113.890 ms
+loop 73: input sync 1.961 ms, run 98.903 ms, output sync 13.045 ms, total 113.909 ms
+loop 74: input sync 1.968 ms, run 98.958 ms, output sync 13.101 ms, total 114.027 ms
+loop 75: input sync 1.934 ms, run 98.922 ms, output sync 13.108 ms, total 113.964 ms
+loop 76: input sync 1.938 ms, run 99.084 ms, output sync 13.126 ms, total 114.148 ms
+loop 77: input sync 1.951 ms, run 99.055 ms, output sync 13.106 ms, total 114.112 ms
+loop 78: input sync 1.910 ms, run 98.965 ms, output sync 13.154 ms, total 114.029 ms
+loop 79: input sync 1.932 ms, run 98.980 ms, output sync 13.079 ms, total 113.991 ms
+loop 80: input sync 1.940 ms, run 99.005 ms, output sync 13.227 ms, total 114.172 ms
+loop 81: input sync 1.944 ms, run 98.978 ms, output sync 13.252 ms, total 114.174 ms
+loop 82: input sync 1.934 ms, run 98.912 ms, output sync 13.070 ms, total 113.916 ms
+loop 83: input sync 1.957 ms, run 98.930 ms, output sync 13.106 ms, total 113.993 ms
+loop 84: input sync 1.938 ms, run 98.977 ms, output sync 13.115 ms, total 114.030 ms
+loop 85: input sync 1.943 ms, run 98.995 ms, output sync 12.985 ms, total 113.923 ms
+loop 86: input sync 1.950 ms, run 99.018 ms, output sync 13.396 ms, total 114.364 ms
+loop 87: input sync 2.014 ms, run 98.946 ms, output sync 13.629 ms, total 114.589 ms
+loop 88: input sync 1.941 ms, run 98.927 ms, output sync 13.397 ms, total 114.265 ms
+loop 89: input sync 1.950 ms, run 99.056 ms, output sync 13.066 ms, total 114.072 ms
+loop 90: input sync 1.957 ms, run 98.996 ms, output sync 12.973 ms, total 113.926 ms
+loop 91: input sync 1.959 ms, run 98.935 ms, output sync 13.164 ms, total 114.058 ms
+loop 92: input sync 1.970 ms, run 98.977 ms, output sync 13.046 ms, total 113.993 ms
+loop 93: input sync 1.949 ms, run 98.987 ms, output sync 13.101 ms, total 114.037 ms
+loop 94: input sync 1.938 ms, run 98.984 ms, output sync 13.079 ms, total 114.001 ms
+loop 95: input sync 1.939 ms, run 98.968 ms, output sync 13.105 ms, total 114.012 ms
+loop 96: input sync 1.957 ms, run 99.031 ms, output sync 13.007 ms, total 113.995 ms
+loop 97: input sync 1.938 ms, run 98.990 ms, output sync 12.988 ms, total 113.916 ms
+loop 98: input sync 1.953 ms, run 98.896 ms, output sync 12.990 ms, total 113.839 ms
+loop 99: input sync 1.950 ms, run 98.968 ms, output sync 13.161 ms, total 114.079 ms
+loop 100: input sync 1.938 ms, run 98.983 ms, output sync 13.183 ms, total 114.104 ms
+loop 101: input sync 1.911 ms, run 98.946 ms, output sync 12.995 ms, total 113.852 ms
+All 101 loops completed successfully
+Average input sync time: 1.943 ms
+Average model run time: 98.961 ms
+Average output sync time: 13.144 ms
+Average total time per loop: 114.048 ms
+Saved output[0] to rt_output0.npy
+Saved output[1] to rt_output1.npy
+Saved output[2] to rt_output2.npy
+Saved output[3] to rt_output3.npy
+Output 0 top5:
+  [146031]: 5.367188
+  [66560]: 5.031250
+  [74240]: 4.996094
+  [299719]: 4.835938
+  [146576]: 4.652344
+Output 1 top5:
+  [0]: 8.789062
+  [28160]: 7.929688
+  [245760]: 6.636719
+  [7680]: 6.257812
+  [17920]: 6.078125
+Output 2 top5:
+  [10240]: 8.789062
+  [20480]: 7.988281
+  [215040]: 7.261719
+  [340480]: 6.464844
+  [156160]: 6.390625
+Output 3 top5:
+  [184320]: 13.585938
+  [337920]: 13.156250
+  [258560]: 13.062500
+  [20480]: 12.140625
+  [245760]: 11.546875
+rknn3_destroy success, cost 1.860 ms

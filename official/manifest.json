@@ -1,0 +1,14 @@
+{
+  "00_RKNN3_SDK_Release_Notes_V1.1.0.pdf": {
+    "size": 104405,
+    "sha256": "46bf096a28b1f18290ed8197caeb92d70d49b42d80204fd3d20eefa6530e218b"
+  },
+  "eval-110.tgz": {
+    "size": 366753,
+    "sha256": "8d2464442ba5df3bf995d1848183c7f4c08411cf5acce121447f0832bc0b0945"
+  },
+  "rknn3_rk182x_m2_installer_arm64.tgz": {
+    "size": 29987205,
+    "sha256": "8787429660cca9f2008fee9340fd5177032439ba1fe93c7d46fdb99e65077b63"
+  }
+}

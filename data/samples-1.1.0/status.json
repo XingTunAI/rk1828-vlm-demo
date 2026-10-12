@@ -1,0 +1,191 @@
+{
+  "started": 1791792007.5297372,
+  "runs": [
+    {
+      "name": "llm-00",
+      "code": 0,
+      "seconds": 39.63098740577698,
+      "command": [
+        "/userdata/rknn3-upgrade-1.1.0/eval/eval-samples",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/llm_Qwen3-VL-4B.rknn",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/llm_Qwen3-VL-4B.weight",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/Qwen3-VL-4B.tokenizer.gguf",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/Qwen3-VL-4B.embed.bin",
+        "1024",
+        "128",
+        "128",
+        "0xff"
+      ]
+    },
+    {
+      "name": "llm-01",
+      "code": 0,
+      "seconds": 39.55844807624817,
+      "command": [
+        "/userdata/rknn3-upgrade-1.1.0/eval/eval-samples",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/llm_Qwen3-VL-4B.rknn",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/llm_Qwen3-VL-4B.weight",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/Qwen3-VL-4B.tokenizer.gguf",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/Qwen3-VL-4B.embed.bin",
+        "1024",
+        "128",
+        "128",
+        "0xff"
+      ]
+    },
+    {
+      "name": "llm-02",
+      "code": 0,
+      "seconds": 39.54381537437439,
+      "command": [
+        "/userdata/rknn3-upgrade-1.1.0/eval/eval-samples",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/llm_Qwen3-VL-4B.rknn",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/llm_Qwen3-VL-4B.weight",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/Qwen3-VL-4B.tokenizer.gguf",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/Qwen3-VL-4B.embed.bin",
+        "1024",
+        "128",
+        "128",
+        "0xff"
+      ]
+    },
+    {
+      "name": "llm-03",
+      "code": 0,
+      "seconds": 39.55903649330139,
+      "command": [
+        "/userdata/rknn3-upgrade-1.1.0/eval/eval-samples",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/llm_Qwen3-VL-4B.rknn",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/llm_Qwen3-VL-4B.weight",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/Qwen3-VL-4B.tokenizer.gguf",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/Qwen3-VL-4B.embed.bin",
+        "1024",
+        "128",
+        "128",
+        "0xff"
+      ]
+    },
+    {
+      "name": "llm-04",
+      "code": 0,
+      "seconds": 39.569995641708374,
+      "command": [
+        "/userdata/rknn3-upgrade-1.1.0/eval/eval-samples",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/llm_Qwen3-VL-4B.rknn",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/llm_Qwen3-VL-4B.weight",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/Qwen3-VL-4B.tokenizer.gguf",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/Qwen3-VL-4B.embed.bin",
+        "1024",
+        "128",
+        "128",
+        "0xff"
+      ]
+    },
+    {
+      "name": "llm-05",
+      "code": 0,
+      "seconds": 39.58264780044556,
+      "command": [
+        "/userdata/rknn3-upgrade-1.1.0/eval/eval-samples",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/llm_Qwen3-VL-4B.rknn",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/llm_Qwen3-VL-4B.weight",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/Qwen3-VL-4B.tokenizer.gguf",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/Qwen3-VL-4B.embed.bin",
+        "1024",
+        "128",
+        "128",
+        "0xff"
+      ]
+    },
+    {
+      "name": "llm-06",
+      "code": 0,
+      "seconds": 39.5871524810791,
+      "command": [
+        "/userdata/rknn3-upgrade-1.1.0/eval/eval-samples",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/llm_Qwen3-VL-4B.rknn",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/llm_Qwen3-VL-4B.weight",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/Qwen3-VL-4B.tokenizer.gguf",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/Qwen3-VL-4B.embed.bin",
+        "1024",
+        "128",
+        "128",
+        "0xff"
+      ]
+    },
+    {
+      "name": "llm-07",
+      "code": 0,
+      "seconds": 39.50426506996155,
+      "command": [
+        "/userdata/rknn3-upgrade-1.1.0/eval/eval-samples",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/llm_Qwen3-VL-4B.rknn",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/llm_Qwen3-VL-4B.weight",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/Qwen3-VL-4B.tokenizer.gguf",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/Qwen3-VL-4B.embed.bin",
+        "1024",
+        "128",
+        "128",
+        "0xff"
+      ]
+    },
+    {
+      "name": "llm-08",
+      "code": 0,
+      "seconds": 39.526153802871704,
+      "command": [
+        "/userdata/rknn3-upgrade-1.1.0/eval/eval-samples",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/llm_Qwen3-VL-4B.rknn",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/llm_Qwen3-VL-4B.weight",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/Qwen3-VL-4B.tokenizer.gguf",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/Qwen3-VL-4B.embed.bin",
+        "1024",
+        "128",
+        "128",
+        "0xff"
+      ]
+    },
+    {
+      "name": "llm-09",
+      "code": 0,
+      "seconds": 39.53802847862244,
+      "command": [
+        "/userdata/rknn3-upgrade-1.1.0/eval/eval-samples",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/llm_Qwen3-VL-4B.rknn",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/llm_Qwen3-VL-4B.weight",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/Qwen3-VL-4B.tokenizer.gguf",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/Qwen3-VL-4B.embed.bin",
+        "1024",
+        "128",
+        "128",
+        "0xff"
+      ]
+    },
+    {
+      "name": "vision",
+      "code": 0,
+      "seconds": 15.363173246383667,
+      "command": [
+        "rknn3_model_test",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/vision_Qwen3-VL-4B.rknn",
+        "/userdata/models/Qwen3-VL-4B-official-v1.1.0/vision_Qwen3-VL-4B.weight",
+        "0xff",
+        "/userdata/rk1828-vlm-demo/results/samples-110/vision-input.npy",
+        "",
+        "0",
+        "101",
+        "0",
+        "path",
+        "none",
+        "1"
+      ]
+    }
+  ],
+  "cpuBefore": {
+    "/sys/devices/system/cpu/cpufreq/policy6/scaling_governor": "schedutil",
+    "/sys/devices/system/cpu/cpufreq/policy4/scaling_governor": "schedutil",
+    "/sys/devices/system/cpu/cpufreq/policy0/scaling_governor": "schedutil"
+  },
+  "status": "finished",
+  "ended": 1791792421.4245777
+}
