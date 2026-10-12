@@ -46,3 +46,5 @@
 [公开方案与 SDK 原生对照 / 老化工具](native-comparison.md)。
 
 [2026-10-12 SDK 1.1.0 完整复测报告](sdk-1.1.0-retest.md)。
+
+[100次有效样本扩样报告](sdk-1.1.0-samples.md)。

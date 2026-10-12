@@ -85,3 +85,5 @@
 ## 复现及原始文件
 
 本地results/retest-110-board：record.json记录完整命令、开始结束时间及退出码；llm-0.log、llm-1.log、vlm.log为工具原始输出；before-*.log与after-device.log为状态记录。运行脚本在results/retest-110/run.py。模型SHA256在results/official-model-test/manifest.json。原始results、模型和SDK文档均不上传GitHub。
+
+[100次有效样本扩样报告](sdk-1.1.0-samples.md)。
