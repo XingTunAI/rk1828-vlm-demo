@@ -1,6 +1,6 @@
 # 公开方案与 SDK 原生对照
 
-2026-10-11。公开参考：[Rockchip Qwen3-VL 示例](https://github.com/airockchip/rknn3-model-zoo/tree/main/examples/Qwen3_VL)、[飞凌性能表](https://docs.forlinx.net/ai-accelerator/rk1820_rk1828/RK1820_RK1828_AI_Accelerator_Development_Guide.html#vlm-performance)。
+2026-10-11。公开参考：[Rockchip Qwen3-VL 示例](https://github.com/airockchip/rknn3-model-zoo/tree/main/examples/Qwen3_VL)。
 
 已下载公开 main.cc、qwen3_vl.cc、CMakeLists.txt 和 demo.jpg，来源及SHA256保存在本地results/public-native/sources.json。完整仓库下载超时，尚未编译公开示例。本轮运行板端随SDK安装的原生工具，不能声称严格复现公开源码或性能表。
 
@@ -26,7 +26,6 @@ Qwen3-VL-4B W4A16，384×384，视觉/LLM核心掩码均0xff，公开demo.jpg，
 
 这是工具输出的汇总值，不是三次分布或P95。TotalTime与阶段计时边界不同，不将其倒数换算图片FPS；源代码计时器的聚合定义需继续核对。视觉输出tensor显示[144,2560]，确认当前视觉模型输出序列长度144，不能外推其他分辨率。
 
-飞凌表中同模型同分辨率为Vision158.89ms、LLM TTFT108.29ms、Decode89.69token/s。但其VLM完整提示词、图片、权重哈希、上下文及预热等未充分公开，不能据此给出同条件性能差距百分比。本轮是原生对照探索，尚非严格复现。
 
 所有原始日志、下载源码和测试图片仅保留本地results，不随项目提交。
 
@@ -40,7 +39,7 @@ Qwen3-VL-4B W4A16，384×384，视觉/LLM核心掩码均0xff，公开demo.jpg，
 
 已在用户提供SDK的 `rknn/rknn3-runtime/doc/00_Rockchip_RKNPU3_ReleaseNote_RKNN3_SDK_V1.0.4_CN.pdf` 找到原厂表。文档版本V1.0.4，日期2026-05-15，第9页为模型性能，第10页为条件，第13页给出测试方法入口。原文件只保存在本地SDK参考目录，不上传仓库。
 
-Qwen3-VL-4B / RK1828 / 384×384：Vision117.6ms，LLM TTFT111.45ms，LLM Decode87.8token/s。这替代此前飞凌表作为当前SDK版本的首选参考。
+Qwen3-VL-4B / RK1828 / 384×384：Vision117.6ms，LLM TTFT111.45ms，LLM Decode87.8token/s。这是 SDK V1.0.4 的历史原厂参考；当前 1.1.0 对比见下方复测报告。
 
 原厂明确说明：Vision和LLM耗时独立测试；LLM输入128token、输出128token；RK3588与RK1828通过PCIe连接；RK3588采用performance模式；协处理器NPU为1GHz。
 
