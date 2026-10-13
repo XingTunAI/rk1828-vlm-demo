@@ -11,3 +11,9 @@
 这些文件直接复制自本地 `results/samples-110-board/` 和 `results/retest-110-board/`，不是重新测试。命令内绝对路径记录当时环境；在新环境复现请按[使用方法](../docs/usage.md)调整。
 
 完整本地原始 `results/` 保留但不进入 Git。旧版业务测试摘要仍在报告索引，相关自建运行代码已移除，需要复查历史实现时查看 Git 历史。
+
+## 12 小时原厂长测
+
+[报告](../docs/sdk-1.1.0-stress-12h.md) · [统计摘要](native-stress-12h/analysis.json) · [资源曲线](native-stress-12h/telemetry.png)
+
+该组仅发布派生统计和曲线。完整日志、逐次遥测与启动参数保留在本地 `results/native-stress-12h-20261012/`，未上传。`analysis.json` 中 npu 为百分比、temp 为℃、mem 为设备 MB、available 为 Host MemAvailable MiB，wallSeconds 包含加载与收尾；均值覆盖全部有效采样。errors 是 SDK 错误标记计数，completedSteps 是日志中的已完成循环数。
