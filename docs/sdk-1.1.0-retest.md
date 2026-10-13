@@ -92,4 +92,4 @@
 
 [100次有效样本扩样报告](sdk-1.1.0-samples.md)。
 
-本次整理已将新版精选逐次 CSV、原生日志和命令记录纳入 [data/](../data/README.md)；完整 results、模型权重和 SDK 安装包仍仅在本地保存。
+本次整理已将新版精选逐次 CSV、统计摘要和命令记录纳入 [data/](../data/README.md)；完整 results、模型权重和 SDK 安装包仍仅在本地保存。

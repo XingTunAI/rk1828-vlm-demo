@@ -10,7 +10,7 @@
 | 模型文件、位置和 SHA-256 | [模型说明](models/README.md) |
 | 安装、单图运行、语言和视觉性能测试 | [使用方法](docs/usage.md) |
 | 原厂数据与我们的对比 | [性能对照](docs/native-comparison.md) |
-| 最新逐次数据、日志和命令 | [实测数据](data/README.md) |
+| 精选数据、统计与复现命令 | [实测数据](data/README.md) |
 | 12 小时原厂压力测试 | [长测报告与曲线](docs/sdk-1.1.0-stress-12h.md) |
 | 完整报告与历史记录 | [报告索引](docs/README.md) |
 

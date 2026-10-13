@@ -42,4 +42,4 @@ P95采用排序后线性插值；吞吐的P95是高端速度，不表示慢尾�
 
 本地results/samples-110-board保存status.json（完整命令、退出码、墙钟）、llm-00至09.log、vision.log、组间状态日志、analysis.json和逐次llm.csv/vision.csv。运行脚本位于results/samples-110/run.py。原始results及模型不上传GitHub。
 
-本次整理已将新版精选逐次 CSV、原生日志和命令记录纳入 [data/](../data/README.md)；完整 results、模型权重和 SDK 安装包仍仅在本地保存。
+本次整理已将新版精选逐次 CSV、统计摘要和命令记录纳入 [data/](../data/README.md)；完整 results、模型权重和 SDK 安装包仍仅在本地保存。

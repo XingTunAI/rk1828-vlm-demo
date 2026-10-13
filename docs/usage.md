@@ -120,4 +120,4 @@ rknn3_model_test \
 
 为了复现统计，应记录 CPU governor、NPU 频率和工作模式，避免其他推理任务争用设备。本次 CPU 临时设为 performance，测试结束恢复原来的 schedutil；NPU 为 PERFORMANCE / 850MHz / 0xff。需要调整 CPU 时先保存各 policy 原值，测试后恢复。
 
-[原厂对照](native-comparison.md)保留原厂值及差异；[实测数据](../data/README.md)包含每次命令、退出码和原始日志。本次整理没有重新运行硬件测试。新版并发、长稳、完整图片吞吐和准确率仍未验证。
+[原厂对照](native-comparison.md)保留原厂值及差异；[实测数据](../data/README.md)包含复现命令、退出码、精选 CSV 与统计摘要；原始日志仅保留本地。本次整理没有重新运行硬件测试。新版已完成[固定图原生 12 小时长测](sdk-1.1.0-stress-12h.md)；并发、完整业务图片吞吐和准确率仍未验证。

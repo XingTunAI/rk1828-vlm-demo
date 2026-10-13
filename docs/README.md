@@ -1,6 +1,6 @@
 # 报告索引
 
-[首页](../README.md) · [原厂使用方法](usage.md) · [实测原始数据](../data/README.md)
+[首页](../README.md) · [原厂使用方法](usage.md) · [精选实测数据](../data/README.md)
 
 ## 实测报告
 

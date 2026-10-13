@@ -25,3 +25,7 @@ node_modules/
 # Local official SDK packages and model binaries
 /official/local/
 /models/local/
+
+# Raw test logs stay local; publish curated summaries and CSV instead
+/data/**/*.log
+/data/**/*.jsonl

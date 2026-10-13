@@ -50,4 +50,4 @@
 
 旧版原厂表、CPU 策略与亲和性排查、官方模型在旧 Runtime 上加载失败、升级首次结果统一保存在[排查历史](native-comparison-history.md)。原始 `results/` 不上传 GitHub。
 
-本次整理已将新版精选逐次 CSV、原生日志和命令记录纳入 [data/](../data/README.md)；完整 results、模型权重和 SDK 安装包仍仅在本地保存。
+本次整理已将新版精选逐次 CSV、统计摘要和命令记录纳入 [data/](../data/README.md)；完整 results、模型权重和 SDK 安装包仍仅在本地保存。
